@@ -26,7 +26,7 @@ class App(Flask):
         Registering the app's blueprints.
         """
         from .modules.index import index_module
-        from .modules.auth import auth_module
+        from src.main.modules.auth import auth_module
 
         self.register_blueprint(index_module, url_prefix="/")
         self.register_blueprint(auth_module, url_prefix="/auth")
@@ -41,10 +41,10 @@ class App(Flask):
         login_manager.init_app(self)
 
         @login_manager.user_loader
-        def load_user(id):
+        def load_user(email):
             # registering user_loader
             from src.main.modules.user import User
-            return User.query.get(id)
+            return User.query.get(email)
 
 
     def load_environment_variables(self):

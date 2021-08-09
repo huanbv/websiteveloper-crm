@@ -12,6 +12,12 @@
     {% include "header.html" %}
     
     <main id="main">
+        {% with flash_messages = get_flashed_messages() %}
+            {% for msg in flash_messages %}
+                <h6 class="text-red-600">{{ msg }}</h6>
+            {% endfor %}
+        {% endwith %}
+
         {% block content %} {% endblock %}
     </main>
 

@@ -4,10 +4,10 @@
 
 
 {% block content %}
-    <h1>Login page!</h1>
+    <h1>Signup page!</h1>
 
     <form action="" method="post" class="flex flex-col gap-10">
-        {{ form.csrf_token }}
+        {{ form.csrf_token() }}
 
         {% for field in form if field.name != 'csrf_token' %}
             <div class="field">
