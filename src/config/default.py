@@ -1,4 +1,4 @@
-
+APP_NAME = 'Websiteveloper CRM'
 
 SECRET_KEY = 'PN Python-Flask Web App'
 
