@@ -1,29 +1,41 @@
 {% extends "base.html" %}
 
-{% block title %} Đăng nhập {% endblock %}
+{% block title %} Đăng ký {% endblock %}
 
 
 {% block content %}
-    <h1>Signup page!</h1>
+<div class="p-20 h-screen w-screen flex flex-col-reverse md:flex-row items-center justify-center bg-gray-200">
+  <div class="content text-3xl text-center md:text-left">
+    <h1 class="text-5xl text-blue-500 font-bold">Hi 👋 Welcome</h1>
+    <p>Management your client with your own on Websiteveloper CRM.</p>
+  </div>
+  <div class="container mx-auto flex flex-col items-center">
+    <form class="shadow-lg w-80 p-4 flex flex-col bg-white rounded-lg" action="" method="post">
+    <h1 class="text-center text-3xl font-medium pb-5">Signup page!</h1>
 
-    <form action="" method="post" class="flex flex-col gap-10">
-        {{ form.csrf_token() }}
+      {{ form.csrf_token }}
 
-        {% for field in form if field.name != 'csrf_token' %}
+      {% for field in form if field.name != 'csrf_token' %}
             <div class="field">
-                {{ field.label() }}
-                {{ field(class='border border-gray-300 rounded p-1.5') }}
-
+                {{ field(class="w-full mb-3 py-3 px-4 border border-gray-400 focus:outline-none rounded-md focus:ring-1 ring-cyan-500") }}
                 <div class="field-errors">
                     {% for error in field.errors %}
                         <h6 class="text-red-500">{{ error }}</h6>
                     {% endfor %}
                 </div>
             </div>
-        {% endfor %}
+      {% endfor %}
 
-        <button type="submit" class="rounded shadow focus:outline-none bg-green-400 hover:bg-green-600">
-            Submit
-        </button>
+      <button class="w-full bg-blue-500 text-white p-3 rounded-lg font-semibold text-lg" type="submit">
+          Signup
+      </button>
+      <a class="text-blue-400 text-center my-2">Forgot Pasword?</a>
+      <hr />
+      <button class="w-full bg-green-400 mt-8 mb-4 text-white p-3 rounded-lg font-semibold text-lg"><a href="{{ url_for('auth.login') }}">Back To Login Page</a></button>
     </form>
+    <p class="text-center text-sm my-4">
+      <span class="font-semibold text-center w-full">Create a Page</span> for a celebrity, band or business
+    </p>
+  </div>
+</div>
 {% endblock %}
