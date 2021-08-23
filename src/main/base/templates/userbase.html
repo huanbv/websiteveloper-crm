@@ -9,8 +9,8 @@
     {% include "head-files.html" %}
 </head>
 <body>
-    {% include "header.html" %}
-    
+    {% include "header-userbase.html" %}
+
     <main id="main">
         {% with flash_messages = get_flashed_messages() %}
             {% if flash_messages %}
@@ -20,7 +20,7 @@
             {% endif %}
         {% endwith %}
 
-        {% block content %} {% endblock %}
+        {% block content %}     {% endblock %}
     </main>
 
     {% include "footer.html" %}

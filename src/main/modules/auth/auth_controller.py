@@ -25,7 +25,8 @@ def login():
                 login_user(the_user)
 
                 # kiem tra role va chuyen huong theo quyen
-                return redirect('/')
+                return redirect('dashboard')
+                # return render_template("index-admin.html", form=form)
 
             flash('Password was wrong')
             return render_template("login.html", form=form)
