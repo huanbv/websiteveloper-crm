@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, flash, url_for
+from flask import Blueprint, render_template, flash, url_for,  request
 from flask_login import login_required, login_user, logout_user, current_user
 from werkzeug.utils import redirect
 
@@ -12,6 +12,11 @@ auth_module = Blueprint('auth', __name__, static_folder='static', template_folde
 @auth_module.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
+    if request.method == 'GET':
+        # redirecting logged-in user to the index page
+        if current_user.is_authenticated:
+            flash('You\'re already logged in!', category='warning')
+            return redirect('/')
 
     # the form is fulfilled
     if form.validate_on_submit():
@@ -25,7 +30,7 @@ def login():
                 login_user(the_user)
 
                 # kiem tra role va chuyen huong theo quyen
-                return redirect('dashboard')
+                return redirect('/')
                 # return render_template("index-admin.html", form=form)
 
             flash('Password was wrong')
@@ -68,9 +73,17 @@ def signup():
     return render_template("signup.html", form=form)
 
 
-@auth_module.route('/logout', methods=['GET', 'POST'])
+@auth_module.route('logout', methods=['GET', 'POST'])
 @login_required
 def logout():
     logout_user()
     flash('Logged out')
     return redirect(url_for('auth.login'))
+
+
+@auth_module.route('/profile', methods=['GET', 'POST'])
+@login_required
+def profile():
+    if current_user.is_authenticated:
+        return render_template('profile.html', user=current_user)
+    return redirect('/')

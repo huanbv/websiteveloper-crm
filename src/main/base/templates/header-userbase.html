@@ -12,15 +12,15 @@
       }
   }
 </style>
-<!--<div x-data="setup()" :class="{ 'dark': isDark }">-->
     <div class="flex flex-col flex-auto flex-shrink-0 antialiased bg-white text-black">
 
       <!-- Header -->
       <div class="fixed w-full flex items-center justify-between h-14 text-black font-regular z-10 shadow-md bg-white">
         <div class="flex items-center justify-start md:justify-center pl-3 w-14 md:w-64 h-14 border-none">
+          <a href="/" class="flex items-center">
           <img class="w-7 h-7 md:w-10 md:h-10 mr-2 rounded-md overflow-hidden" src="https://therminic2018.eu/wp-content/uploads/2018/07/dummy-avatar.jpg" />
-          <span class="hidden md:block">CRM for SMEs</span>
-
+          <span class="hidden md:block font-bold">CRM for SMEs</span>
+          </a>
         </div>
 
         <div class="flex justify-between items-center h-14 header-right">
@@ -33,9 +33,9 @@
           <ul class="flex items-center">
             <!-- profile menu -->
             <li>
-              <a href="#" class="flex items-center hover:bg-gray-100 rounded-full py-1 px-0.5 pr-2">
+              <a href="/auth/profile" class="flex items-center hover:bg-gray-100 rounded-full py-1 px-0.5 pr-2">
               <img class="w-8 h-8 rounded-full mr-2" src="https://tailwindcomponents.com/storage/avatars/zGVdhplPHfkRi10xr9wao7ERhbwRMjGgTOLAyHeK.png" alt="" />
-               The Huan
+               {{ user.last_name }} {{ user.first_name }}
               </a>
             </li>
             <!-- end profile menu -->
@@ -107,7 +107,7 @@
 
             <!-- logout menu -->
             <li>
-              <a href="#" class="flex items-center mr-4 hover:text-blue-900">
+              <a href="auth/logout" class="flex items-center mr-4 hover:text-blue-900">
                 <span class="inline-flex mr-1">
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
                 </span>
