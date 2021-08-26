@@ -71,36 +71,62 @@
         <li>
           <div class="block w-px h-6 mx-1 bg-white-400"></div>
         </li>
-        <!-- notification icon menu-->
-        <li class="relative">
-          <button class="group p-2.5 transition-colors duration-200 rounded-full bg-gray-200 hover:bg-gray-300 text-gray-900 focus:outline-none" @click="toggleNotificationsMenu" @keydown.escape="closeNotificationsMenu" aria-label="Notifications" aria-haspopup="true">
+        <li>
+          <div x-data="{ dropdownOpen: false }" class="relative my-32">
+            <button aria-hidden="true"  @click="dropdownOpen = !dropdownOpen" class="group p-2.5 transition-colors duration-200 rounded-full bg-gray-200 hover:bg-gray-300 text-gray-900 focus:outline-none" aria-label="Notifications" aria-haspopup="true">
             <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
               <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"></path>
             </svg>
             <!-- Notification badge -->
             <span aria-hidden="true" class="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-1 -translate-y-1 bg-red-600 border-2 border-white rounded-full"></span>
-          </button>
-          <template x-if="isNotificationsMenuOpen">
-            <ul x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" @click.away="closeNotificationsMenu" @keydown.escape="closeNotificationsMenu" class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md">
-              <li class="flex">
-                <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800" href="#">
-                  <span>Messages</span>
-                  <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-600 bg-red-100 rounded-full"> 13 </span>
-                </a>
-              </li>
-              <li class="flex">
-                <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800" href="#">
-                  <span>Sales</span>
-                  <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-600 bg-red-100 rounded-full"> 2 </span>
-                </a>
-              </li>
-              <li class="flex">
-                <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800" href="#">
-                  <span>Alerts</span>
-                </a>
-              </li>
-            </ul>
-          </template>
+            </button>
+            <div x-show="dropdownOpen" class="absolute right-0 mt-3 bg-white rounded-md shadow-lg overflow-hidden z-20" style="width:20rem;">
+              <div class="grid grid-cols-6 gap-4">
+                <div class="col-start-1 col-end-3 font-extrabold px-3 py-3 text-xl"><h1 class="">Notifications</h1></div>
+                <div class="col-end-7 col-span-2 text-gray-300 pr-0 px-10 py-2">
+                  <button aria-hidden="true" class="group p-2.5 transition-colors duration-200 rounded-full hover:bg-gray-100 text-gray-900 focus:outline-none">
+                    <svg viewBox="0 0 515.555 515.555" alt="" height="20" width="20">
+                        <path d="m496.679 212.208c25.167 25.167 25.167 65.971 0 91.138s-65.971 25.167-91.138 0-25.167-65.971 0-91.138 65.971-25.167 91.138 0" />
+                        <path d="m303.347 212.208c25.167 25.167 25.167 65.971 0 91.138s-65.971 25.167-91.138 0-25.167-65.971 0-91.138 65.971-25.167 91.138 0" />
+                        <path d="m110.014 212.208c25.167 25.167 25.167 65.971 0 91.138s-65.971 25.167-91.138 0-25.167-65.971 0-91.138 65.971-25.167 91.138 0" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div class="grid grid-cols-6 gap-4">
+                <div class="col-start-1 col-end-3 font-bold px-3 py-1 text-xm"><p class="">Mới</p></div>
+                <div class="col-end-7 col-span-2 px-3 py-1 text-xs font-bold text-right text-blue-500"><p class="">Xem tất cả</p></div>
+              </div>
+<!--              <div class="py-2 flex flex-col transition-all duration-300 border-none z-10">-->
+                  <div class="py-2 flex flex-col z-10 p-4 w-full max-w-sm flex-none min-h-0 overflow-auto">
+                            <a href="#" class="flex items-center px-4 py-3 border-b hover:bg-gray-100 -mx-2">
+                                <img class="h-8 w-8 rounded-full object-cover mx-1" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80" alt="avatar">
+                                <p class="text-gray-600 text-sm mx-2">
+                                    <span class="font-bold" href="#">Sara Salah</span> replied on the <span class="font-bold text-blue-500" href="#">Upload Image</span> artical . 2m
+                                </p>
+                            </a>
+                            <a href="#" class="flex items-center px-4 py-3 border-b hover:bg-gray-100 -mx-2">
+                                <img class="h-8 w-8 rounded-full object-cover mx-1" src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80" alt="avatar">
+                                <p class="text-gray-600 text-sm mx-2">
+                                    <span class="font-bold" href="#">Slick Net</span> start following you . 45m
+                                </p>
+                            </a>
+                            <a href="#" class="flex items-center px-4 py-3 border-b hover:bg-gray-100 -mx-2">
+                                <img class="h-8 w-8 rounded-full object-cover mx-1" src="https://images.unsplash.com/photo-1450297350677-623de575f31c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80" alt="avatar">
+                                <p class="text-gray-600 text-sm mx-2">
+                                    <span class="font-bold" href="#">Jane Doe</span> Like Your reply on <span class="font-bold text-blue-500" href="#">Test with TDD</span> artical . 1h
+                                </p>
+                            </a>
+                            <a href="#" class="flex items-center px-4 py-3 hover:bg-gray-100 -mx-2">
+                                <img class="h-8 w-8 rounded-full object-cover mx-1" src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=398&q=80" alt="avatar">
+                                <p class="text-gray-600 text-sm mx-2">
+                                    <span class="font-bold" href="#">Abigail Bennett</span> start following you . 3h
+                                </p>
+                            </a>
+                        </div>
+                        <a href="#" class="block bg-gray-800 text-white text-center font-bold py-2">See all notifications</a>
+                    </div>
+          </div>
         </li>
         <li>
           <div class="block w-px h-6 mx-1 bg-white-400"></div>
@@ -113,24 +139,26 @@
               </svg>
             </button>
             <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>
-            <div x-show="dropdownOpen" class="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-20">
+            <div x-show="dropdownOpen" class="absolute right-0 mt-3 py-2 w-80 bg-white rounded-md shadow-xl z-20">
               <a href="/auth/profile">
                 <div class="flex items-center hover:border-blue-500 rounded-lg font-bold
-                            block items-center mr-2 ml-2 px-4 py-2 text-sm capitalize text-black-500 hover:bg-gray-100 hover:text-black">
+                            block items-center mr-2 ml-2 px-4 py-2 text-sm capitalize text-black-500 hover:bg-gray-50 hover:text-black">
                   <div class="relative hidden w-10 h-10 mr-3 rounded-full md:block">
                     <img class="object-cover w-full h-full rounded-full" src="https://tailwindcomponents.com/storage/avatars/zGVdhplPHfkRi10xr9wao7ERhbwRMjGgTOLAyHeK.png" alt="" loading="lazy" />
                     <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
                   </div>
                   <div>
                     <p class="font-semibold">{{ user.last_name }} {{ user.first_name }}</p>
-                    <p class="text-xs text-gray-500">View profile</p>
+                    <p class="text-xs text-gray-500 font-normal">View your profile information</p>
                   </div>
                 </div>
               </a>
               <div class="block w-50 h-px mx-5 mt-2 mb-2 bg-gray-300"></div>
-              <a href="#" class="hover:border-blue-500 rounded-lg block flex items-center mr-2 ml-2 px-4 py-2 text-sm capitalize text-gray-700 hover:bg-gray-100 hover:text-black">
-                <span class="inline-flex mr-1">
-                  <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 490.667 490.667" xml:space="preserve">
+              <a href="#">
+                <div class="flex items-center hover:border-blue-500 rounded-lg font-bold
+                            block items-center mr-2 ml-2 px-4 py-2 text-sm capitalize text-black-500 hover:bg-gray-50 hover:text-black">
+                  <div aria-hidden="true" class="relative hidden w-10 h-10 mr-3 md:block group p-2.5 transition-colors duration-200 rounded-full bg-gray-200 focus:outline-none">
+                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 490.667 490.667" xml:space="preserve">
                     <g>
                       <g>
                         <path d="M416,0H74.667C33.493,0,0,33.493,0,74.667v234.667C0,350.507,33.493,384,74.667,384h230.251l103.552,103.552
@@ -143,13 +171,17 @@
                       </g>
                     </g>
                   </svg>
-                </span> Make suggestions </a>
-
+                    <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
+                  </div>
+                  <div>
+                    <p class="font-semibold">Make suggestions</p>
+                    <p class="text-xs font-normal text-gray-500">Please send them, including errors</p>
+                  </div>
+                </div>
+              </a>
               <div class="block w-50 h-px mx-5 mt-2 mb-2 bg-gray-300"></div>
-              <a href="#" class="hover:border-blue-500 rounded-lg block flex items-center mr-2 ml-2 px-4 py-2 text-sm capitalize text-gray-700 hover:bg-gray-100 hover:text-black"> your profile </a>
-              <a href="#" class="hover:border-blue-500 rounded-lg block flex items-center mr-2 ml-2 px-4 py-2 text-sm capitalize text-gray-700 hover:bg-gray-100 hover:text-black">Your projects </a>
-              <a href="#" class="hover:border-blue-500 rounded-lg block flex items-center mr-2 ml-2 px-4 py-2 text-sm capitalize text-gray-700 hover:bg-gray-100 hover:text-black">
-                <span class="inline-flex mr-1">
+              <a href="#" class="font-semibold hover:border-blue-500 rounded-lg block flex items-center mr-2 ml-2 px-4 py-2 text-sm capitalize text-gray-700 hover:bg-gray-50 hover:text-black">
+                <span class="inline-flex mr-1 relative hidden w-8 h-8 mr-3 md:block group p-2.5 transition-colors duration-200 rounded-full bg-gray-200 focus:outline-none">
                   <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 431.855 431.855" xml:space="preserve">
                     <g>
                       <path style="fill:#010002;" d="M215.936,0C96.722,0,0.008,96.592,0.008,215.814c0,119.336,96.714,216.041,215.927,216.041
@@ -169,20 +201,22 @@
                             c6.747,10.266,10.128,21.427,10.128,33.482C299.635,165.473,297.709,173.789,293.856,180.934z" />
                     </g>
                   </svg>
-                </span> Help </a>
-              <a href="#" class="hover:border-blue-500 rounded-lg block flex items-center mr-2 ml-2 px-4 py-2 text-sm capitalize text-gray-700 hover:bg-gray-100 hover:text-black">
-                <span class="inline-flex mr-1">
+                </span> Help
+              </a>
+              <a href="#" class="font-semibold hover:border-blue-500 rounded-lg block flex items-center mr-2 ml-2 px-4 py-2 text-sm capitalize text-gray-700 hover:bg-gray-50 hover:text-black">
+                <span class="inline-flex mr-1 relative hidden w-10 h-10 mr-3 md:block group p-2.5 transition-colors duration-200 rounded-full bg-gray-200 focus:outline-none">
                   <svg class="w-5 h-5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="m22.683 9.394-1.88-.239c-.155-.477-.346-.937-.569-1.374l1.161-1.495c.47-.605.415-1.459-.122-1.979l-1.575-1.575c-.525-.542-1.379-.596-1.985-.127l-1.493 1.161c-.437-.223-.897-.414-1.375-.569l-.239-1.877c-.09-.753-.729-1.32-1.486-1.32h-2.24c-.757 0-1.396.567-1.486 1.317l-.239 1.88c-.478.155-.938.345-1.375.569l-1.494-1.161c-.604-.469-1.458-.415-1.979.122l-1.575 1.574c-.542.526-.597 1.38-.127 1.986l1.161 1.494c-.224.437-.414.897-.569 1.374l-1.877.239c-.753.09-1.32.729-1.32 1.486v2.24c0 .757.567 1.396 1.317 1.486l1.88.239c.155.477.346.937.569 1.374l-1.161 1.495c-.47.605-.415 1.459.122 1.979l1.575 1.575c.526.541 1.379.595 1.985.126l1.494-1.161c.437.224.897.415 1.374.569l.239 1.876c.09.755.729 1.322 1.486 1.322h2.24c.757 0 1.396-.567 1.486-1.317l.239-1.88c.477-.155.937-.346 1.374-.569l1.495 1.161c.605.47 1.459.415 1.979-.122l1.575-1.575c.542-.526.597-1.379.127-1.985l-1.161-1.494c.224-.437.415-.897.569-1.374l1.876-.239c.753-.09 1.32-.729 1.32-1.486v-2.24c.001-.757-.566-1.396-1.316-1.486zm-10.683 7.606c-2.757 0-5-2.243-5-5s2.243-5 5-5 5 2.243 5 5-2.243 5-5 5z" />
                   </svg>
                 </span> Settings </a>
-              <a href="auth/logout" class="hover:border-blue-500 rounded-lg block flex items-center mr-2 ml-2 px-4 py-2 text-sm capitalize text-gray-700 hover:bg-gray-200 hover:text-black">
-                <span class="inline-flex mr-1">
+              <a href="auth/logout" class="font-semibold hover:border-blue-500 rounded-lg block flex items-center mr-2 ml-2 px-4 py-2 text-sm capitalize text-gray-700 hover:bg-gray-50 hover:text-black">
+                <span class="inline-flex mr-1 relative hidden w-10 h-10 mr-3 md:block group p-2.5 transition-colors duration-200 rounded-full bg-gray-200 focus:outline-none">
                   <svg class="w-5 h-5" viewBox="0 0 512.00533 512" xmlns="http://www.w3.org/2000/svg">
                     <path d="m320 277.335938c-11.796875 0-21.332031 9.558593-21.332031 21.332031v85.335937c0 11.753906-9.558594 21.332032-21.335938 21.332032h-64v-320c0-18.21875-11.605469-34.496094-29.054687-40.554688l-6.316406-2.113281h99.371093c11.777344 0 21.335938 9.578125 21.335938 21.335937v64c0 11.773438 9.535156 21.332032 21.332031 21.332032s21.332031-9.558594 21.332031-21.332032v-64c0-35.285156-28.714843-63.99999975-64-63.99999975h-229.332031c-.8125 0-1.492188.36328175-2.28125.46874975-1.027344-.085937-2.007812-.46874975-3.050781-.46874975-23.53125 0-42.667969 19.13281275-42.667969 42.66406275v384c0 18.21875 11.605469 34.496093 29.054688 40.554687l128.386718 42.796875c4.351563 1.34375 8.679688 1.984375 13.226563 1.984375 23.53125 0 42.664062-19.136718 42.664062-42.667968v-21.332032h64c35.285157 0 64-28.714844 64-64v-85.335937c0-11.773438-9.535156-21.332031-21.332031-21.332031zm0 0" />
                     <path d="m505.75 198.253906-85.335938-85.332031c-6.097656-6.101563-15.273437-7.9375-23.25-4.632813-7.957031 3.308594-13.164062 11.09375-13.164062 19.714844v64h-85.332031c-11.777344 0-21.335938 9.554688-21.335938 21.332032 0 11.777343 9.558594 21.332031 21.335938 21.332031h85.332031v64c0 8.621093 5.207031 16.40625 13.164062 19.714843 7.976563 3.304688 17.152344 1.46875 23.25-4.628906l85.335938-85.335937c8.339844-8.339844 8.339844-21.824219 0-30.164063zm0 0" />
                   </svg>
-                </span> Sign Out </a>
+                </span> Sign Out
+              </a>
             </div>
           </div>
         </li>
