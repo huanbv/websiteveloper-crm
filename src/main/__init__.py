@@ -27,9 +27,12 @@ class App(Flask):
         """
         from .modules.index import index_module
         from src.main.modules.auth import auth_module
+        from src.main.modules.project import project_module
 
         self.register_blueprint(index_module, url_prefix="/")
         self.register_blueprint(auth_module, url_prefix="/auth")
+        self.register_blueprint(project_module, url_prefix="/project")
+
 
 
     def register_login_manager(self):

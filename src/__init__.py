@@ -33,7 +33,6 @@ def create_app():
     print("\n[INITIALIZING THE DATABASE...]")
     db.init_app(app=app)
 
-
     # migrating Models to DB
     from flask_migrate import Migrate
     print("\n\n[MIGRATING THE DATABASE...]")
@@ -48,7 +47,11 @@ def create_app():
 
     # importing models
     import src.main.modules.user.user_model
+
     # place your new model (want to be created in the app.sqlite) here
+    import src.main.modules.tag.tag_model
+    import src.main.modules.project.project_model
+
 
 
     print('\n\n[NEW APP RETURNED...]')

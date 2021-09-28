@@ -10,5 +10,5 @@ export PYTHONPATH=$MAIN_DIR:$ROOT_DIR
 #export # showing all environment variables
 
 flask db init --directory db/migrations
-flask db migrate --directory db/migrations -m "new migrate íntance"
+flask db migrate --directory db/migrations -m "new migrate instance"
 flask db upgrade --directory db/migrations
