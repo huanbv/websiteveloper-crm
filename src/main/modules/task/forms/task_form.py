@@ -10,14 +10,18 @@ class TaskForm(FlaskForm):
 
     inputName = StringField(label='Name', validators=[
         DataRequired(message='Please fill out the name field'),
-    ], render_kw={"placeholder": "Project name"})
+    ], render_kw={"placeholder": "Task name"})
 
-    inputStartDate = DateTimeLocalField('Project Start Date', format='%Y-%m-%dT%H:%M',
-                                        validators=[DataRequired(message="Please enter your project start date!")])
+    inputStartDate = DateTimeLocalField('Task Start Date', format='%Y-%m-%dT%H:%M',
+                                        validators=[DataRequired(message="Please enter your task start date!")])
 
-    inputDeadLine = DateTimeLocalField('Project Dead Line', format='%Y-%m-%dT%H:%M',
-                                       validators=[DataRequired(message="Please enter your project dead line!")])
+    inputDeadLine = DateTimeLocalField('Task Dead Line', format='%Y-%m-%dT%H:%M',
+                                       validators=[DataRequired(message="Please enter your task dead line!")])
 
-    inputProjectStatus = SelectField('Project Status', coerce=int)
+    inputTaskStatus = SelectField('Task Status', coerce=int)
+
+    inputTaskPriority = SelectField('Task Priority', coerce=int)
+
+    inputProject = SelectField('Project', coerce=int)
 
     tags = TagField()

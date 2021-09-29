@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, request
+from flask import Blueprint, render_template, redirect, flash
 from flask_login import login_required, current_user
 
 from src import db
@@ -16,7 +16,24 @@ project_module = Blueprint('project', __name__, static_folder='static', template
 def project():
     if current_user.is_authenticated:
         return render_template('project.html', user=current_user)
-    return redirect('/')
+    else:
+        return redirect('/')
+
+
+# @project_module.route('/<int:project_id>', methods=['GET'])
+# @login_required
+# def project(id):
+#
+#     if current_user.is_authenticated:
+#
+#         the_project = db.session.query(Project).get(id)
+#         if not the_project.user_id == current_user.user_id:
+#             flash('You don\'t own this Project')
+#             return redirect('/')
+#
+#         return render_template('project/view.html', project=the_project,  user=current_user)
+#
+#     return redirect('/')
 
 
 @project_module.route('/add', methods=['GET', 'POST'])

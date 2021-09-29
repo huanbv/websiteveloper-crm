@@ -297,7 +297,7 @@
                   <a href="/project" role="menuitem" class="block p-2 text-sm transition-colors duration-200 rounded-md hover:text-blue-500">
                     All project
                   </a>
-                  <a href="/project/add" role="menuitem" class="block p-2 text-sm transition-colors duration-200 rounded-md hover:text-blue-500">
+                  <a href="{{ url_for('project.add') }}" role="menuitem" class="block p-2 text-sm transition-colors duration-200 rounded-md hover:text-blue-500">
                     Add project
                   </a>
                 </div>
@@ -324,10 +324,10 @@
                 <div x-show="open" class="capitalize text-sm tracking-wide truncate text-black-400 font-regular mt-2 space-y-2 px-7" role="menu" arial-label="Components" style="display: none;">
                   <!-- active & hover classes 'text-gray-700 dark:text-light' -->
                   <!-- inActive classes 'text-gray-400 dark:text-gray-400' -->
-                  <a href="/project" role="menuitem" class="block p-2 text-sm transition-colors duration-200 rounded-md hover:text-blue-500">
+                  <a href="/task" role="menuitem" class="block p-2 text-sm transition-colors duration-200 rounded-md hover:text-blue-500">
                     All task
                   </a>
-                  <a href="/project/add" role="menuitem" class="block p-2 text-sm transition-colors duration-200 rounded-md hover:text-blue-500">
+                  <a href="{{ url_for('task.add') }}" role="menuitem" class="block p-2 text-sm transition-colors duration-200 rounded-md hover:text-blue-500">
                     Add task
                   </a>
                 </div>

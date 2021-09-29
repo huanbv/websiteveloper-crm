@@ -51,6 +51,7 @@ def create_app():
     # place your new model (want to be created in the app.sqlite) here
     import src.main.modules.tag.tag_model
     import src.main.modules.project.project_model
+    import src.main.modules.task.task_model
 
 
 
