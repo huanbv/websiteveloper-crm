@@ -133,6 +133,6 @@ def view(id):
             flash('You don\'t own this Task Checklist Item')
             return redirect('/')
 
-        return render_template('/task-checklist-item.html', task=the_task,  user=current_user)
+        return render_template('/task-details.html', task=the_task,  user=current_user)
 
     return redirect('/')

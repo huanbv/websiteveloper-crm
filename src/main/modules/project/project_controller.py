@@ -107,6 +107,6 @@ def view(id):
             flash('You don\'t own this Project')
             return redirect('/')
 
-        return render_template('view.html', project=the_project,  user=current_user)
+        return render_template('project-details.html', project=the_project,  user=current_user)
 
     return redirect('/')

@@ -45,7 +45,7 @@ def add():
         task_checklist_item.user = current_user
         db.session.add(task_checklist_item)
         db.session.commit()
-        return redirect('/task-checklist-item')
+        return redirect('/task')
 
     return render_template('add-task-checklist-item.html', form=form, user=current_user)
 
@@ -75,7 +75,7 @@ def edit(id):
             the_task_checklist_item.task_id = form.inputTask.data
 
             db.session.commit()
-            return redirect('/task-checklist-item')
+            return redirect('/task')
 
         form.inputName.default = the_task_checklist_item.name
         form.inputTaskChecklistStatus.default = the_task_checklist_item.task_checklist_status_id

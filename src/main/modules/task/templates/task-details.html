@@ -7,45 +7,8 @@
 <div class="w-full col-span-12 px-0 mx-auto overflow-x-hidden lg:pl-5 lg:col-span-10 xl:col-span-8 xl:pr-5 xl:overflow-visible min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-gray-100 text-black">
     <div class="h-full ml-14 mt-14 mb-10 md:ml-64">
 
-        <h1>{{ task.name }}</h1>
 
         {% if task.task_checklist_items %}
-
-        <div class="w-full table-auto mt-5 shadow-md bg-white rounded p-5">
-
-            <div class="flex flex-col sm:flex-row items-center border-dashed border-b-2 pb-2">
-                <a class="mb-2 mt-2 mr-auto text-xs uppercase bg-blue-500 text-white p-2 rounded" href="#">Add task checklist item</a>
-                <div class="w-full sm:w-auto sm:ml-auto mt-3 sm:mt-0"></div>
-            </div>
-
-            <h2 class="font-semibold mb-2 mt-2">View Tasks Detail Summary</h2>
-            <div class="grid grid-cols-6 gap-1">
-
-                <div>1<br>
-                    <span class="text-gray-500">Not Started</span>
-                </div>
-
-                <div class="border-l-2 pl-3">2<br>
-                    <span class="text-blue-500">In Progress</span>
-                </div>
-
-                <div class="border-l-2 pl-3">3<br>
-                    <span class="text-red-500">Testing</span>
-                </div>
-
-                <div class="border-l-2 pl-3">4<br>
-                    <span class="text-gray-500">Awaiting Feedback</span>
-                </div>
-
-                <div class="border-l-2 pl-3">5<br>
-                    <span class="text-blue-800">Complete</span>
-                </div>
-
-                <div class="border-l-2 pl-3"><br>
-                    <span></span>
-                </div>
-
-            </div>
 
             <table class=" w-full table-auto mt-5 rounded">
                 <thead>
@@ -71,7 +34,7 @@
 
                     <td class="py-3 px-6 text-left whitespace-nowrap">
                         <div class="flex items-center">
-                            <span class="font-medium">{{ task.name }}</span>
+                            <span class="font-medium">---</span>
                         </div>
                     </td>
 
@@ -118,9 +81,9 @@
         {% else %}
 
         <div class="text-center my-10">
-            <h4 class="font-bold">You do not have any task checklist in project {{ task.name }} list!</h4>
+            <h4 class="font-bold">You do not have any task checklist in project!</h4>
             <div class="my-5">
-                <a href="add" class="rounded py-3 px-6 text-lg text-white capitalize bg-blue-500 hover:bg-blue-400">Create a new task project</a>
+                <a href="{{ url_for('task_checklist_item.add') }}" class="rounded py-3 px-6 text-lg text-white capitalize bg-blue-500 hover:bg-blue-400">Add tasklist</a>
             </div>
         </div>
 
