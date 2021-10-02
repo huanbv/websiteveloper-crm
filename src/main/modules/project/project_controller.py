@@ -20,22 +20,6 @@ def project():
         return redirect('/')
 
 
-# @project_module.route('/<int:project_id>', methods=['GET'])
-# @login_required
-# def project(id):
-#
-#     if current_user.is_authenticated:
-#
-#         the_project = db.session.query(Project).get(id)
-#         if not the_project.user_id == current_user.user_id:
-#             flash('You don\'t own this Project')
-#             return redirect('/')
-#
-#         return render_template('project/view.html', project=the_project,  user=current_user)
-#
-#     return redirect('/')
-
-
 @project_module.route('/add', methods=['GET', 'POST'])
 @login_required
 def add():
@@ -112,7 +96,17 @@ def delete(id):
     return redirect(f"/project")
 
 
+@project_module.route('/view/<int:id>', methods=['GET'])
+@login_required
+def view(id):
 
+    if current_user.is_authenticated:
 
+        the_project = db.session.query(Project).get(id)
+        if not the_project.user == current_user:
+            flash('You don\'t own this Project')
+            return redirect('/')
 
+        return render_template('view.html', project=the_project,  user=current_user)
 
+    return redirect('/')

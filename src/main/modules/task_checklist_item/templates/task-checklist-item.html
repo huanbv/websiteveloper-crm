@@ -1,17 +1,17 @@
 {% extends "userbase.html" %}
 
-{% block title %} Task Page {% endblock %}
+{% block title %} Task Checklist Item Page {% endblock %}
 
 {% block content %}
 <div class="w-full col-span-12 px-0 mx-auto overflow-x-hidden lg:pl-5 lg:col-span-10 xl:col-span-8 xl:pr-5 xl:overflow-visible min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-gray-100 text-black">
   <div class="h-full ml-14 mt-14 mb-10 md:ml-64">
-    {% if user.tasks %}
+    {% if user.task_checklist_items %}
             <div class="w-full table-auto mt-5 shadow-md bg-white rounded p-5">
                 <div class="flex flex-col sm:flex-row items-center border-dashed border-b-2 pb-2">
-                    <a class="mb-2 mt-2 mr-auto text-xs uppercase bg-blue-500 text-white p-2 rounded" href="/task/add">New task</a>
+                    <a class="mb-2 mt-2 mr-auto text-xs uppercase bg-blue-500 text-white p-2 rounded" href="/task-checklist-item/add">New task checklist item</a>
                     <div class="w-full sm:w-auto sm:ml-auto mt-3 sm:mt-0"></div>
                 </div>
-                <h2 class="font-semibold mb-2 mt-2">Task Summary</h2>
+                <h2 class="font-semibold mb-2 mt-2">Task Checklist Item Summary</h2>
                 <div class="grid grid-cols-6 gap-1">
                   <div>1<br>
                         <span class="text-gray-500">Not Started</span>
@@ -41,78 +41,37 @@
                 <table class=" w-full table-auto mt-5 rounded">
                       <thead>
                         <tr class="bg-gray-200 text-gray-600 capitalize text-sm leading-normal">
-                            <th class="py-3 px-6 text-left">Task Name</th>
-                            <th class="py-3 px-6 text-left">Start date</th>
-                            <th class="py-3 px-6 text-center">Deadline</th>
-                            <th class="py-3 px-6 text-center">Assigned to</th>
+                            <th class="py-3 px-6 text-left">Task Checklist Name</th>
+                            <th class="py-3 px-6 text-left">Parent of Task</th>
                             <th class="py-3 px-6 text-center">Status</th>
-                            <th class="py-3 px-6 text-center">Tags</th>
-                            <th class="py-3 px-6 text-left">Priority</th>
                             <th class="py-3 px-6 text-center">Actions</th>
                         </tr>
                       </thead>
                       <tbody class="text-gray-600 text-sm font-light">
-                      {% for task in user.tasks %}
+                      {% for task_checklist_item in user.task_checklist_items %}
                         <tr class="border-b border-gray-200 hover:bg-gray-100">
 
                             <td class="py-3 px-6 text-left whitespace-nowrap">
                                 <div class="flex items-center">
-                                    <span class="font-medium">{{ task.name }}</span>
+                                    <span class="font-medium">{{ task_checklist_item.name }}</span>
                                 </div>
-                            </td>
-
-                            <td class="py-3 px-6 text-left">
-                                <div class="flex items-center">
-                                    <span>{{ task.start_date }}</span>
-                                </div>
-                            </td>
-
-                            <td class="py-3 px-6 text-center">
-                                <div class="flex items-center justify-center">
-                                <span>{{ task.dead_line }}</span>
-                                </div>
-                            </td>
-
-                            <td class="py-3 px-6 text-center">
-                                <div class="flex items-center justify-center">
-                                    <img class="w-6 h-6 rounded-full border-gray-200 border transform hover:scale-125" src="https://randomuser.me/api/portraits/men/1.jpg"/>
-                                    <img class="w-6 h-6 rounded-full border-gray-200 border -m-1 transform hover:scale-125" src="https://randomuser.me/api/portraits/women/2.jpg"/>
-                                    <img class="w-6 h-6 rounded-full border-gray-200 border -m-1 transform hover:scale-125" src="https://randomuser.me/api/portraits/men/3.jpg"/>
-                                </div>
-                            </td>
-
-                            <td class="py-3 px-6 text-center">
-                                <span class="bg-purple-200 text-purple-600 py-1 px-3 rounded-full text-xs">
-                                    {{ task.task_status.name }}
-                                </span>
-                            </td>
-
-                            <td class="py-3 px-6 text-center">
-                                <span class="bg-purple-200 text-purple-600 py-1 px-3 rounded-full text-xs">
-                                    {% for task_tag in task.task_tags %}
-                                        {{ task_tag.tag.name }}
-                                    {% endfor %}
-                                </span>
                             </td>
 
                             <td class="py-3 px-6 text-left whitespace-nowrap">
                                 <div class="flex items-center">
-                                    <span class="font-medium">{{ task.task_priority.name }}</span>
+                                    <span class="font-medium"></span>
                                 </div>
                             </td>
 
                             <td class="py-3 px-6 text-center">
-                                <div class="flex item-center justify-center">
-                                    <a href="{{ url_for('task.view', id=task.id) }}">
-                                    <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                        </svg>
-                                    </div>
-                                    </a>
+                                <span class="bg-purple-200 text-purple-600 py-1 px-3 rounded-full text-xs">
+                                    {{ task_checklist_item.task_status.name }}
+                                </span>
+                            </td>
 
-                                    <a href="{{ url_for('task.edit', id=task.id) }}">
+                            <td class="py-3 px-6 text-center">
+                                <div class="flex item-center justify-center">
+                                    <a href="{{ url_for('task_checklist_item.edit', id=task_checklist_item.id) }}">
                                     <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
@@ -120,7 +79,7 @@
                                     </div>
                                     </a>
 
-                                    <a href="{{ url_for('task.delete', id=task.id) }}">
+                                    <a href="{{ url_for('task_checklist_item.delete', id=task_checklist_item.id) }}">
                                     <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -165,7 +124,7 @@
       <div class="text-center my-10">
         <h4 class="font-bold">You do not have any task in list!</h4>
           <div class="my-5">
-                <a href="add" class="rounded py-3 px-6 text-lg text-white capitalize bg-blue-500 hover:bg-blue-400">Add a task</a>
+                <a href="add" class="rounded py-3 px-6 text-lg text-white capitalize bg-blue-500 hover:bg-blue-400">Create a new task</a>
           </div>
       </div>
     {% endif %}

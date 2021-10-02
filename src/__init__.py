@@ -52,6 +52,7 @@ def create_app():
     import src.main.modules.tag.tag_model
     import src.main.modules.project.project_model
     import src.main.modules.task.task_model
+    import src.main.modules.task_checklist_item.task_checklist_item_model
 
 
 

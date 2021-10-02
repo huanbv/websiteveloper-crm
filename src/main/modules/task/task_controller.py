@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect
+from flask import Blueprint, render_template, redirect, flash
 from flask_login import login_required, current_user
 
 from src import db
@@ -14,7 +14,7 @@ task_module = Blueprint('task', __name__, static_folder='static', template_folde
 
 @task_module.route('/', methods=['GET', 'POST'])
 @login_required
-def project():
+def task():
     if current_user.is_authenticated:
         return render_template('task.html', user=current_user)
     return redirect('/')
@@ -57,3 +57,82 @@ def add():
 
     tags = Tag.query.all()
     return render_template('add-task.html', form=form, user=current_user, tags=tags)
+
+
+@task_module.route('/edit/<int:id>', methods=['GET', 'POST'])
+@login_required
+def edit(id):
+    if current_user.is_authenticated:
+
+        form = TaskForm()
+
+        # gan cac tags da chon
+        from src.main.modules.task.task_model import TaskTag
+        form.tags.default = [tag.tag_id for tag in TaskTag.query.filter_by(task_id=id).all()]
+
+        # re-index task status form task status table
+        # on get request -- showing the form view
+        form.inputTaskStatus.choices = [(p.id, p.name) for p in db.session.query(TaskStatus).all()]
+
+        # re-index parent project status form project table
+        form.inputProject.choices = [(p.id, p.name) for p in db.session.query(Project).filter_by(user_id=current_user
+                                                                                                 .email).all()]
+
+
+        # re-index task priority
+        form.inputTaskPriority.choices = [(p.id, p.name) for p in db.session.query(TaskPriority).all()]
+
+        the_task = db.session.query(Task).get(id)
+
+        if form.validate_on_submit():
+            print(form.tags.data)
+            print(the_task.task_tags)
+
+            the_task.name = form.inputName.data
+            the_task.start_date = form.inputStartDate.data
+            the_task.dead_line = form.inputDeadLine.data
+            the_task.task_status_id = form.inputTaskStatus.data
+            the_task.project_id = form.inputProject.data
+            the_task.task_priority_id = form.inputTaskPriority.data
+            the_task.task_tags = [TaskTag(task_id=the_task.id, tag_id=tag_id) for tag_id in form.tags.data]
+
+            db.session.commit()
+            return redirect('/task')
+
+        form.inputName.default = the_task.name
+        form.inputStartDate.default = the_task.start_date
+        form.inputDeadLine.default = the_task.dead_line
+        form.inputTaskStatus.default = the_task.task_status_id
+        form.inputProject.default = the_task.project_id
+        form.inputTaskPriority.default = the_task.task_priority_id
+        form.process()
+
+        tags = Tag.query.all()
+        return render_template('/add-task.html', form=form, user=current_user, tags=tags)
+
+    return redirect("/")
+
+
+@task_module.route('/delete/<int:id>', methods=['GET', 'POST'])
+@login_required
+def delete(id):
+    the_task = db.session.query(Task).filter_by(id=id).first()
+    db.session.delete(the_task)
+    db.session.commit()
+    return redirect(f"/task")
+
+
+@task_module.route('/view/<int:id>', methods=['GET'])
+@login_required
+def view(id):
+
+    if current_user.is_authenticated:
+
+        the_task = db.session.query(Task).get(id)
+        if not the_task.user == current_user:
+            flash('You don\'t own this Task Checklist Item')
+            return redirect('/')
+
+        return render_template('/task-checklist-item.html', task=the_task,  user=current_user)
+
+    return redirect('/')
