@@ -30,12 +30,20 @@ class App(Flask):
         from src.main.modules.project import project_module
         from src.main.modules.task import task_module
         from src.main.modules.task_checklist_item import task_checklist_item_module
+        from src.main.modules.client import client_module
+        from src.main.modules.contact import contact_module
+        from src.main.modules.currency import currency_module
+        from src.main.modules.country import country_module
 
         self.register_blueprint(index_module, url_prefix="/")
         self.register_blueprint(auth_module, url_prefix="/auth")
         self.register_blueprint(project_module, url_prefix="/project")
         self.register_blueprint(task_module, url_prefix="/task")
         self.register_blueprint(task_checklist_item_module, url_prefix="/task-checklist-item")
+        self.register_blueprint(client_module, url_prefix="/client")
+        self.register_blueprint(contact_module, url_prefix="/contact")
+        self.register_blueprint(currency_module, url_prefix="/currency")
+        self.register_blueprint(country_module, url_prefix="/country")
 
 
 

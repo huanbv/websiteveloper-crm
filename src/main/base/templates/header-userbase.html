@@ -266,7 +266,7 @@
         <li>
           <a href="/" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-200 text-white-600 hover:text-white-800 hover:border-blue-500 pr-6 rounded-lg">
             <span class="inline-flex justify-center items-center ml-4">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
               </svg>
             </span>
@@ -276,10 +276,46 @@
         <li>
           <div x-data="{ isActive: false, open: false }">
                 <!-- active classes 'bg-primary-100 dark:bg-primary' -->
-                <a href="#" @click="$event.preventDefault(); open = !open" class="flex h-11 hover:text-blue-500 items-center px-4 py-2 text-black-800 transition-colors rounded-lg hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" :class="{ 'bg-primary-100': isActive || open }" role="button" aria-haspopup="true" :aria-expanded="(open || isActive) ? 'true' : 'false'" aria-expanded="false">
+                <a href="#" @click="$event.preventDefault(); open = !open" class="flex h-11 items-center px-4 py-2 text-black-800 transition-colors rounded-lg focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" :class="{ 'bg-primary-100': isActive || open }" role="button" aria-haspopup="true" :aria-expanded="(open || isActive) ? 'true' : 'false'" aria-expanded="false">
 
-                  <svg class="inline w-5 h-5 mt-1 transition-transform duration-200 transform md:-mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+                  <svg class="inline w-4 h-4 mt-1 transition-transform duration-200 transform md:m-1" viewBox="0 0 8.4666665 8.4666669">
+                    <g transform="translate(0,-288.53332)">
+                      <path d="M 10.462891 16.070312 C 4.9244824 18.277775 0.99608795 23.682844 0.99609375 30 A 1.0001 1.0001 0 0 0 2 31.003906 L 30 31.003906 A 1.0001 1.0001 0 0 0 30.996094 30 C 30.996099 23.68349 27.06876 18.278206 21.53125 16.070312 C 19.99994 17.27111 18.07881 17.996094 15.996094 17.996094 C 13.912967 17.996094 11.992832 17.271538 10.462891 16.070312 z " id="path935" style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" transform="matrix(0.26458333,0,0,0.26458333,0,288.53332)"/><path d="M 15.996094 1.0039062 C 11.589664 1.0039062 8.0019573 4.5916469 8.0019531 8.9980469 C 8.0019573 13.404485 11.589664 17 15.996094 17 C 20.402524 17 23.998043 13.404485 23.998047 8.9980469 C 23.998043 4.5916469 20.402524 1.0039062 15.996094 1.0039062 z " id="path940" style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" transform="matrix(0.26458333,0,0,0.26458333,0,288.53332)"/>
+                    </g>
+                  </svg>
+
+                  <span class="ml-2 text-sm tracking-wide truncate font-semibold">Customers</span>
+
+                  <span aria-hidden="true" class="ml-auto">
+                    <!-- active class 'rotate-180' -->
+                    <svg class="w-4 h-4 transition-transform transform" :class="{ 'rotate-180': open }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                  </span>
+                </a>
+                <div x-show="open" class="capitalize text-sm tracking-wide truncate text-black-400 font-regular mt-2 space-y-2 px-7" role="menu" arial-label="Components" style="display: none;">
+                  <!-- active & hover classes 'text-gray-700 dark:text-light' -->
+                  <!-- inActive classes 'text-gray-400 dark:text-gray-400' -->
+                  <a href="/client" role="menuitem" class="block p-2 text-sm transition-colors duration-200 rounded-md hover:text-blue-500">
+                    All customer
+                  </a>
+                  <a href="{{ url_for('client.add') }}" role="menuitem" class="block p-2 text-sm transition-colors duration-200 rounded-md hover:text-blue-500">
+                    Add Customer
+                  </a>
+                </div>
+              </div>
+        </li>
+        <li>
+          <div x-data="{ isActive: false, open: false }">
+                <!-- active classes 'bg-primary-100 dark:bg-primary' -->
+                <a href="#" @click="$event.preventDefault(); open = !open" class="flex h-11 items-center px-4 py-2 text-black-800 transition-colors rounded-lg focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" :class="{ 'bg-primary-100': isActive || open }" role="button" aria-haspopup="true" :aria-expanded="(open || isActive) ? 'true' : 'false'" aria-expanded="false">
+
+                  <svg class="inline w-4 h-4 mt-1 transition-transform duration-200 transform md:m-1"  viewBox="0 0 48 48">
+                    <g>
+                      <polygon points="28.357,20.508 19.642,20.508 6.47,20.508 0.03,20.508 0.03,27.492 4.032,27.492 19.642,27.492    28.357,27.492 41.032,27.492 47.97,27.492 47.97,20.508 44.282,20.508  "/>
+                      <polygon points="44.282,6.524 28.357,6.524 19.642,6.524 6.47,6.524 0.03,6.524 0.03,13.508 4.032,13.508    19.642,13.508 28.357,13.508 41.032,13.508 47.97,13.508 47.97,6.524  "/>
+                      <polygon points="28.357,34.492 19.642,34.492 6.47,34.492 0.03,34.492 0.03,41.477 4.032,41.477 19.642,41.477    28.357,41.477 41.032,41.477 47.97,41.477 47.97,34.492 44.282,34.492  "/>
+                    </g>
                   </svg>
 
                   <span class="ml-2 text-sm tracking-wide truncate font-semibold">Projects</span>
@@ -306,10 +342,10 @@
         <li>
           <div x-data="{ isActive: false, open: false }">
                 <!-- active classes 'bg-primary-100 dark:bg-primary' -->
-                <a href="#" @click="$event.preventDefault(); open = !open" class="flex h-11 hover:text-blue-500 items-center px-4 py-2 text-black-800 transition-colors rounded-lg hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" :class="{ 'bg-primary-100': isActive || open }" role="button" aria-haspopup="true" :aria-expanded="(open || isActive) ? 'true' : 'false'" aria-expanded="false">
+                <a href="#" @click="$event.preventDefault(); open = !open" class="flex h-11 items-center px-4 py-2 text-black-800 transition-colors rounded-lg focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" :class="{ 'bg-primary-100': isActive || open }" role="button" aria-haspopup="true" :aria-expanded="(open || isActive) ? 'true' : 'false'" aria-expanded="false">
 
-                  <svg class="inline w-5 h-5 mt-1 transition-transform duration-200 transform md:-mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+                  <svg viewBox="0 0 512 512" class="inline w-4 h-4 mt-1 transition-transform duration-200 transform md:m-1">
+                    <path d="M139.61 35.5a12 12 0 0 0-17 0L58.93 98.81l-22.7-22.12a12 12 0 0 0-17 0L3.53 92.41a12 12 0 0 0 0 17l47.59 47.4a12.78 12.78 0 0 0 17.61 0l15.59-15.62L156.52 69a12.09 12.09 0 0 0 .09-17zm0 159.19a12 12 0 0 0-17 0l-63.68 63.72-22.7-22.1a12 12 0 0 0-17 0L3.53 252a12 12 0 0 0 0 17L51 316.5a12.77 12.77 0 0 0 17.6 0l15.7-15.69 72.2-72.22a12 12 0 0 0 .09-16.9zM64 368c-26.49 0-48.59 21.5-48.59 48S37.53 464 64 464a48 48 0 0 0 0-96zm432 16H208a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h288a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0-320H208a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h288a16 16 0 0 0 16-16V80a16 16 0 0 0-16-16zm0 160H208a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h288a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16z"/>
                   </svg>
 
                   <span class="ml-2 text-sm tracking-wide truncate font-semibold">Tasks</span>
@@ -336,13 +372,13 @@
         <li>
           <div x-data="{ isActive: false, open: false }">
                 <!-- active classes 'bg-primary-100 dark:bg-primary' -->
-                <a href="#" @click="$event.preventDefault(); open = !open" class="flex h-11 hover:text-blue-500 items-center px-4 py-2 text-black-800 transition-colors rounded-lg hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" :class="{ 'bg-primary-100': isActive || open }" role="button" aria-haspopup="true" :aria-expanded="(open || isActive) ? 'true' : 'false'" aria-expanded="false">
+                <a href="#" @click="$event.preventDefault(); open = !open" class="flex h-11 items-center px-4 py-2 text-black-800 transition-colors rounded-lg focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" :class="{ 'bg-primary-100': isActive || open }" role="button" aria-haspopup="true" :aria-expanded="(open || isActive) ? 'true' : 'false'" aria-expanded="false">
 
-                  <svg class="inline w-5 h-5 mt-1 transition-transform duration-200 transform md:-mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+                  <svg class="inline w-4 h-4 mt-1 transition-transform duration-200 transform md:m-1" viewBox="0 0 32 32">
+                    <g><path d="M11,30H5c-1.7,0-3-1.3-3-3v-6c0-1.7,1.3-3,3-3h6c1.7,0,3,1.3,3,3v6C14,28.7,12.7,30,11,30z"/></g><g><path d="M29,6H17c-0.6,0-1-0.4-1-1s0.4-1,1-1h12c0.6,0,1,0.4,1,1S29.6,6,29,6z"/></g><g><path d="M24,10h-7c-0.6,0-1-0.4-1-1s0.4-1,1-1h7c0.6,0,1,0.4,1,1S24.6,10,24,10z"/></g><g><path d="M29,22H17c-0.6,0-1-0.4-1-1s0.4-1,1-1h12c0.6,0,1,0.4,1,1S29.6,22,29,22z"/></g><g><path d="M24,26h-7c-0.6,0-1-0.4-1-1s0.4-1,1-1h7c0.6,0,1,0.4,1,1S24.6,26,24,26z"/></g><path d="M11,2H5C3.3,2,2,3.3,2,5v6c0,1.7,1.3,3,3,3h6c1.7,0,3-1.3,3-3V5C14,3.3,12.7,2,11,2z M11.7,6.7l-3,3C8.5,9.9,8.3,10,8,10  S7.5,9.9,7.3,9.7l-2-2c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0L8,7.6l2.3-2.3c0.4-0.4,1-0.4,1.4,0S12.1,6.3,11.7,6.7z"/>
                   </svg>
 
-                  <span class="ml-2 text-sm tracking-wide truncate font-semibold">Checklist</span>
+                  <span class="ml-2 text-sm tracking-wide truncate font-semibold">Todo</span>
 
                   <span aria-hidden="true" class="ml-auto">
                     <!-- active class 'rotate-180' -->

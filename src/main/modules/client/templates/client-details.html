@@ -1,6 +1,6 @@
 {% extends "userbase.html" %}
 
-{% block title %} Project View Details {% endblock %}
+{% block title %} Contact View Details {% endblock %}
 
 {% block content %}
 
@@ -10,12 +10,12 @@
             <div class="grid grid-cols-2 gap-1 items-center">
 
                 <div>
-                    <button class="font-semibold">{{ project.name }}</button>
-                    <a class="mb-2 mt-2 mr-auto text-xs uppercase bg-blue-500 text-white p-1 rounded">{{ project.project_status.text }}</a>
+                    <button class="font-semibold">{{ client.name }}</button>
+                    <a class="mb-2 mt-2 mr-auto text-xs uppercase bg-blue-500 text-white p-1 rounded">{{ client.client_status.text }}</a>
                 </div>
 
                 <div>
-                    <a class="mb-2 mt-2 mr-auto text-xs uppercase bg-blue-500 text-white p-2 rounded" href="{{ url_for('task.add', id=project.id) }}">Add task</a>
+                    <a class="mb-2 mt-2 mr-auto text-xs uppercase bg-blue-500 text-white p-2 rounded" href="{{ url_for('client.add', id=client.id) }}">Add contact</a>
                 </div>
 
             </div>
@@ -25,8 +25,8 @@
 
             <!-- Tabs -->
             <ul id="tabs" class="inline-flex w-full px-1 pt-2 ">
-                <li class="px-4 py-2 -mb-px font-semibold text-gray-800 border-b-2 border-blue-400 rounded-t opacity-50"><a id="default-tab" href="#first">Project Overview</a></li>
-                <li class="px-4 py-2 font-semibold text-gray-800 rounded-t opacity-50"><a href="#second">Tasks</a></li>
+                <li class="px-4 py-2 -mb-px font-semibold text-gray-800 border-b-2 border-blue-400 rounded-t opacity-50"><a id="default-tab" href="#first">Customer Overview</a></li>
+                <li class="px-4 py-2 font-semibold text-gray-800 rounded-t opacity-50"><a href="#second">Contacts</a></li>
                 <li class="px-4 py-2 font-semibold text-gray-800 rounded-t opacity-50"><a href="#third">Files</a></li>
                 <li class="px-4 py-2 font-semibold text-gray-800 rounded-t opacity-50"><a href="#fourth">Notes</a></li>
                 <li class="px-4 py-2 font-semibold text-gray-800 rounded-t opacity-50"><a href="#fifth">Activity</a></li>
@@ -39,8 +39,8 @@
                 </div>
 
                 <div id="second" class="hidden p-4">
-                    {% if project.tasks %}
-                    <h2 class="font-semibold mb-2 mt-2">Task Summary</h2>
+                    {% if client.contacts %}
+                    <h2 class="font-semibold mb-2 mt-2">Contact Summary</h2>
                     <div class="grid grid-cols-6 gap-1">
                         <div>1<br>
                             <span class="text-gray-500">Not Started</span>
@@ -70,72 +70,50 @@
                     <table class="w-full table-auto mt-5 rounded">
                         <thead>
                         <tr class="bg-gray-200 text-gray-600 capitalize text-sm leading-normal text-center">
-                            <th class="py-3 px-1">Task Name</th>
-                            <th class="py-3 px-1">Customer</th>
-                            <th class="py-3 px-1">Start date</th>
-                            <th class="py-3 px-1">Deadline</th>
-                            <th class="py-3 px-1">Members</th>
-                            <th class="py-3 px-1">Status</th>
-                            <th class="py-3 px-1">Priority</th>
-                            <th class="py-3 px-1">Tags</th>
-                            <th class="py-3 px-1">Actions</th>
+                            <th class="py-3 px-1">Full Name</th>
+                            <th class="py-3 px-1">Email</th>
+                            <th class="py-3 px-1">Position</th>
+                            <th class="py-3 px-1">Phone</th>
+                            <th class="py-3 px-1">Active</th>
                         </tr>
                         </thead>
 
                         <tbody class="text-gray-600 font-light">
-                        {% for task in project.tasks %}
+                        {% for contact in client.contacts %}
                         <tr class="border-b border-gray-200 hover:bg-gray-100">
                              <td class="py-3 px-6 text-left whitespace-nowrap">
                                  <div class="flex items-center">
-                                     <span class="font-medium">{{ task.name }}</span>
+                                     <span class="font-medium">{{ contact.first_name }} {{ contact.middle_name }} {{ contact.last_name }}</span>
                                  </div>
                              </td>
 
                             <td class="py-3 px-6 text-left whitespace-nowrap">
                                 <div class="flex items-center">
-                                    <span class="font-medium">{{ project.user_id }}</span>
+                                    <span class="font-medium">{{ contact.email }}</span>
                                 </div>
                             </td>
 
                             <td class="py-3 px-6 text-left">
                                 <div class="flex items-center">
-                                    <span>{{ task.start_date }}</span>
+                                    <span>{{ contact.position }}</span>
                                 </div>
                             </td>
 
                             <td class="py-3 px-6 text-center">
                                 <div class="flex items-center justify-center">
-                                    <span>{{ task.dead_line }}</span>
+                                    <span>{{ contact.phone }}</span>
                                 </div>
                             </td>
 
                             <td class="py-3 px-6 text-center">
                                 <div class="flex items-center justify-center">
-                                    <img class="w-6 h-6 rounded-full border-gray-200 border transform hover:scale-125" src="https://randomuser.me/api/portraits/men/1.jpg"/>
-                                    <img class="w-6 h-6 rounded-full border-gray-200 border -m-1 transform hover:scale-125" src="https://randomuser.me/api/portraits/women/2.jpg"/>
-                                    <img class="w-6 h-6 rounded-full border-gray-200 border -m-1 transform hover:scale-125" src="https://randomuser.me/api/portraits/men/3.jpg"/>
+                                    <span>---</span>
                                 </div>
-                            </td>
-
-                            <td class="py-3 px-6 text-center">
-                                <span class="bg-purple-200 text-purple-600 py-1 px-3 rounded-full text-xs">{{ task.task_status.name }}</span>
-                            </td>
-
-                            <td class="py-3 px-6 text-center">
-                                <span class="bg-purple-200 text-purple-600 py-1 px-3 rounded-full text-xs">{{ task.task_priority.name }}</span>
-                            </td>
-
-                            <td class="py-3 px-6 text-center">
-                                <span class="bg-purple-200 text-purple-600 py-1 px-3 rounded-full text-xs">
-                                    {% for task_tag in task.task_tags %}
-                                    {{ task_tag.tag.name }}
-                                    {% endfor %}
-                                </span>
                             </td>
 
                             <td class="py-3 px-6 text-center">
                                 <div class="flex item-center justify-center">
-                                    <a href="{{ url_for('task.view', id=task.id) }}">
+                                    <a href="">
                                         <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -144,7 +122,7 @@
                                         </div>
                                     </a>
 
-                                    <a href="{{ url_for('task.edit', id=task.id) }}">
+                                    <a href="">
                                         <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
@@ -152,7 +130,7 @@
                                         </div>
                                     </a>
 
-                                    <a href="{{ url_for('task.delete', id=task.id) }}">
+                                    <a href="">
                                         <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -171,9 +149,9 @@
                     {% else %}
 
                     <div class="text-center my-10">
-                        <h4 class="font-bold">You do not have any task in {{ project.name }}!</h4>
+                        <h4 class="font-bold">You do not have any contact in {{ client.name }}!</h4>
                         <div class="my-5">
-                            <a href="{{ url_for('task.add', id=project.id) }}" class="rounded py-3 px-6 text-lg text-white capitalize bg-blue-500 hover:bg-blue-400">Add a task</a>
+                            <a href="" class="rounded py-3 px-6 text-lg text-white capitalize bg-blue-500 hover:bg-blue-400">Add contact</a>
                         </div>
                     </div>
 
