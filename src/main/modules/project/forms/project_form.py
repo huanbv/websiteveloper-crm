@@ -12,6 +12,8 @@ class ProjectForm(FlaskForm):
         DataRequired(message='Please fill out the name field'),
     ], render_kw={"placeholder": "Project name"})
 
+    inputCustomer = SelectField('Customer', coerce=int)
+
     inputStartDate = DateTimeLocalField('Project Start Date', format='%Y-%m-%dT%H:%M',
                                         validators=[DataRequired(message="Please enter your project start date!")])
 

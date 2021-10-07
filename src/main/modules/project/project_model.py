@@ -18,8 +18,10 @@ class Project(db.Model):
     project_status_id = db.Column(db.Integer, ForeignKey('project_status.id'))
     project_status = relationship('ProjectStatus', backref='projects')
 
+    client_id = db.Column(db.Integer, ForeignKey('client.id'))
+    client = relationship('Client', backref='projects')
 
-    def __init__(self, name: str, start_date: str, dead_line: str, project_status_id: str):
+    def __init__(self, name: str, start_date: str, dead_line: str, project_status_id: str, client_id: str):
         """
         The constructor for Project model.
         :param name: The project's name
@@ -30,6 +32,7 @@ class Project(db.Model):
         self.start_date = start_date
         self.dead_line = dead_line
         self.project_status_id = project_status_id
+        self.client_id = client_id
 
 
 class ProjectStatus(db.Model):
