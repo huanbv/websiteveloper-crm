@@ -51,7 +51,7 @@ def add():
         the_contact.user = current_user
         db.session.add(the_contact)
         db.session.commit()
-        return redirect('/contact')
+        return redirect('/client')
 
     return render_template('add-contact.html', form=form, user=current_user)
 

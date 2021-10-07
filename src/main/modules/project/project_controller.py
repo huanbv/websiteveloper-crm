@@ -36,12 +36,12 @@ def add():
         print(form.tags.data)
 
         name = form.inputName.data
-        customer = form.inputCustomer.data
+        client_id = form.inputCustomer.data
         dead_line = form.inputDeadLine.data
         start_date = form.inputStartDate.data
         project_status_id = form.inputProjectStatus.data
 
-        project = Project(name=name, customer=customer, start_date=start_date, dead_line=dead_line, project_status_id=project_status_id)
+        project = Project(name=name, client_id=client_id, start_date=start_date, dead_line=dead_line, project_status_id=project_status_id)
         project.project_tags = [ProjectTag(project_id=project.id, tag_id=tag_id) for tag_id in form.tags.data]
 
         # add user email to owner project
@@ -77,7 +77,7 @@ def edit(id):
         print(the_project.project_tags)
 
         the_project.name = form.inputName.data
-        the_project.customer = form.inputCustomer.data
+        the_project.client_id = form.inputCustomer.data
         the_project.start_date = form.inputStartDate.data
         the_project.dead_line = form.inputDeadLine.data
         the_project.project_status_id = form.inputProjectStatus.data
@@ -87,7 +87,7 @@ def edit(id):
         return redirect('/project')
 
     form.inputName.default = the_project.name
-    form.inputCustomer.default = the_project.customer
+    form.inputCustomer.default = the_project.client_id
     form.inputStartDate.default = the_project.start_date
     form.inputDeadLine.default = the_project.dead_line
     form.inputProjectStatus.default = the_project.project_status_id
