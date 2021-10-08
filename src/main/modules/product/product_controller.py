@@ -1,11 +1,12 @@
-from flask import Blueprint, render_template, redirect, request, url_for
+from flask import Blueprint, render_template, redirect, request, url_for, current_app, flash
 from flask_login import login_required, current_user
 
 from src import db
-from src.main.modules.product import ProductBrand, ProductCategory
+from src.main.modules.product import ProductBrand, ProductCategory, Product
 
 from src.main.modules.product.forms import ProductBrandForm, ProductCategoryForm, ProductForm
 
+import secrets
 
 product_module = Blueprint('product', __name__, static_folder='static', template_folder='templates')
 
@@ -14,7 +15,8 @@ product_module = Blueprint('product', __name__, static_folder='static', template
 @login_required
 def product():
     if current_user.is_authenticated:
-        return render_template('product.html', user=current_user)
+        products = Product.query.all()
+        return render_template('product.html', user=current_user, products=products)
     return redirect('/')
 
 
@@ -24,21 +26,33 @@ def addProduct():
 
     form = ProductForm()
 
-    product_brands = ProductBrand.query.all()
-    product_categories = ProductCategory.query.all()
+    # select product brand status form product brand table
+    form.inputProductBrand.choices = [(p.id, p.text) for p in db.session.query(ProductBrand).all()]
+    form.inputProductCategory.choices = [(p.id, p.text) for p in db.session.query(ProductCategory).all()]
+
 
     if form.validate_on_submit():
+        if request.method == "POST":
 
-        text = form.inputName.data
+            name = form.inputName.data
+            price = form.inputPrice.data
+            discount = form.inputDiscount.data
+            stock = form.inputStock.data
+            colors = form.inputColor.data
+            description = form.inputDescription.data
+            product_brand_id = form.inputProductBrand.data
+            product_category_id = form.inputProductCategory.data
 
-        the_brand = ProductBrand(text=text)
+            the_product = Product(name=name, price=price, discount=discount, stock=stock, colors=colors,
+                                  description=description, product_brand_id=product_brand_id,
+                                  product_category_id=product_category_id)
 
-        db.session.add(the_brand)
-        db.session.commit()
-        return redirect('/product')
+            db.session.add(the_product)
+            db.session.commit()
+            flash('Your product has been submitted', 'success')
+            return redirect('/product')
 
-    return render_template('add-product.html', form=form, product_brands=product_brands,
-                           product_categories=product_categories)
+    return render_template('add-product.html', form=form, user=current_user)
 
 
 @product_module.route('brand/add', methods=['GET', 'POST'])

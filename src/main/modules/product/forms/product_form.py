@@ -1,5 +1,5 @@
-from flask_wtf.file import FileAllowed, FileField, FileRequired
-from wtforms import IntegerField, StringField, TextAreaField
+from flask_wtf.file import FileAllowed, FileField
+from wtforms import IntegerField, StringField, TextAreaField, SelectField
 
 from flask_wtf import FlaskForm
 from wtforms.validators import DataRequired
@@ -53,6 +53,16 @@ class ProductForm(FlaskForm):
             DataRequired(message='Please fill out the color field'),
         ],
         render_kw={"placeholder": "Product color"},
+    )
+
+    inputProductBrand = SelectField(
+        label='Product Brand',
+        coerce=int
+    )
+
+    inputProductCategory = SelectField(
+        label='Product Category',
+        coerce=int
     )
 
     inputThumbnail = FileField(

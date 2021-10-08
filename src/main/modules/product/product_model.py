@@ -1,4 +1,5 @@
-from sqlalchemy import Sequence
+from sqlalchemy import Sequence, ForeignKey
+from sqlalchemy.orm import relationship
 
 from src import db
 
@@ -15,11 +16,11 @@ class Product(db.Model):
     description = db.Column(db.Text, nullable=False)
     pub_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
-    product_brand_id = db.Column(db.Integer, db.ForeignKey('product_brand.id'), nullable=False)
-    product_brand = db.relationship('ProductBrand', backref=db.backref('product_brands', lazy=True))
+    product_brand_id = db.Column(db.Integer, ForeignKey('product_brand.id'))
+    product_brand = relationship('ProductBrand', backref='products')
 
-    product_category_id = db.Column(db.Integer, db.ForeignKey('product_category.id'), nullable=False)
-    product_category = db.relationship('ProductCategory', backref=db.backref('product_categories', lazy=True))
+    product_category_id = db.Column(db.Integer, ForeignKey('product_category.id'))
+    product_category = relationship('ProductCategory', backref='products')
 
     thumbnail = db.Column(db.String(150), nullable=False, default='image.jpg')
 

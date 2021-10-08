@@ -74,4 +74,3 @@ class App(Flask):
         # Load the file specified by the APP_CONFIG_FILE environment variable
         # Variables defined here will override those in the default configuration
         self.config.from_envvar('APP_CONFIG_FILE')
-
