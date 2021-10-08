@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Add a product</h1>
+    <form action="" method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        {% for field in form if not field.name == 'csrf_token' %}
+        <div class="form-group">
+            <div class="mb-4 pt-2">
+                <tbody>
+                {{ field.label(class="text-xl text-gray-600") }}
+                </tbody>
+
+                <td>
+                    {{ field(class="py-2 px-3 rounded-lg border-2 border-blue-300 w-full mt-1 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent") }}
+                </td>
+            </div>
+
+            {% if field.errors %}
+            {% for error in field.errors %}
+            <div class="inline-flex items-center bg-white leading-none text-pink-600 rounded-full p-2 shadow text-teal text-sm">
+                <strong>Error:</strong> [{{ error }}]
+            </div>
+
+            {% endfor %}
+            {% endif %}
+        </div>
+        {% endfor %}
+        <label for="product_brand">Add a brand</label>
+        <select name="product_brand" id="product_brand" required>
+            <option value="">
+                Select a brand
+            </option>
+            {% for product_brand in product_brands %}
+            <option value="product_brand.id">
+                {{ product_brand.text }}
+            </option>
+            {% endfor %}
+        </select>
+
+        <label for="product_category">Add a category</label>
+        <select name="product_category" id="product_category" required>
+            <option value="">
+                Select a category
+            </option>
+            {% for product_category in product_categories %}
+            <option value="product_category.id">
+                {{ product_category.text }}
+            </option>
+            {% endfor %}
+        </select>
+
+        <p>
+            <button type="submit" class='w-auto bg-blue-500 hover:bg-blue-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Submit</button>
+            <a href="/product">Cancel</a>
+        </p>
+    </form>
+</body>
+</html>

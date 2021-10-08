@@ -57,7 +57,7 @@ def create_app():
     import src.main.modules.contact.contact_model
     import src.main.modules.currency.currency_model
     import src.main.modules.country.country_model
-
+    import src.main.modules.product.product_model
 
 
     print('\n\n[NEW APP RETURNED...]')
