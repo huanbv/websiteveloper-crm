@@ -1,0 +1,149 @@
+{% extends "userbase.html" %}
+
+{% block title %} Product Brand Page {% endblock %}
+
+{% block content %}
+<div class="w-full col-span-12 px-0 mx-auto overflow-x-hidden lg:pl-5 lg:col-span-10 xl:col-span-8 xl:pr-5 xl:overflow-visible min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-gray-100 text-black">
+    <div class="h-full ml-14 mt-14 mb-10 md:ml-64">
+        <!-- header -->
+        <div class="px-4 py-3 border-b border-gray-200">
+            <h2 class="text-xl font-semibold text-gray-600"><span class="font-medium">Product brand Information</span></h2>
+        </div>
+
+        <!-- body -->
+        <div class="w-full bg-gray-100">
+            <div class="container mx-auto">
+                <div class="md:flex no-wrap md:-mx-2 pt-2">
+
+                    <!-- Left Side -->
+                    <div class="w-full md:w-3/12 md:mx-2">
+
+                        <!-- Add product brand -->
+                        <div class="bg-white p-3 border-t-4 border-blue-400 rounded">
+                            {% if product_brands %}
+                                <form action="" method="POST">
+                                    {{ form.hidden_tag() }}
+                                    {% for field in form if not field.name == 'csrf_token' %}
+                                    <div class="form-group">
+                                        <div class="mb-4 pt-2">
+                                            <tbody>
+                                            {{ field.label(class="text-xl text-gray-600") }}
+                                            </tbody>
+
+                                            <td>
+                                                {{ field(class="py-2 px-3 rounded-lg border-2 border-blue-300 w-full mt-1 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent") }}
+                                            </td>
+                                        </div>
+                                        {% if field.errors %}
+                                        {% for error in field.errors %}
+                                        <div class="inline-flex items-center bg-white leading-none text-pink-600 rounded-full p-2 shadow text-teal text-sm">
+                                            <strong>Error:</strong> [{{ error }}]
+                                        </div>
+
+                                        {% endfor %}
+                                        {% endif %}
+                                    </div>
+
+                                    {% endfor %}
+
+                                    <p>
+                                        <button type="submit" class='w-auto bg-blue-500 hover:bg-blue-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Submit</button>
+                                        <a href="/product/brand">Cancel</a>
+                                    </p>
+                                </form>
+                           {% endif %}
+                        </div>
+
+                        <!-- End of add product brand -->
+                        <div class="my-4"></div>
+                    </div>
+
+                    <!-- Right Side -->
+                    <div class="w-full md:w-9/12 mx-2 h-64">
+                        <!-- Product Brand tab -->
+                        <!-- Product Brand Section -->
+                        <div class="bg-white p-3 shadow-sm rounded">
+                            <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
+                                <span clas="text-green-500">
+                                    -
+                                </span>
+                                <span class="tracking-wide">Product brand list</span>
+                            </div>
+                            {% if product_brands %}
+                            <div class="w-full table-auto">
+                                <div class="flex flex-col sm:flex-row items-center border-dashed border-b-2 pb-2">
+                                    <a class="mb-2 mt-2 mr-auto text-xs uppercase bg-blue-500 text-white p-2 rounded" href="/product/brand/add">Add product brand</a>
+                                    <div class="w-full sm:w-auto sm:ml-auto mt-3 sm:mt-0"></div>
+                                </div>
+
+                                <h2 class="font-semibold mb-2 mt-2">Product Brand</h2>
+
+
+                                <table class=" w-full table-auto mt-5 rounded">
+                                    <thead>
+                                    <tr class="bg-gray-200 text-gray-600 capitalize text-sm leading-normal">
+                                        <th class="py-3 px-6 text-left">Brand Name</th>
+                                        <th class="py-3 px-6 text-left">Brand ID</th>
+                                        <th class="py-3 px-6 text-center">Action</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody class="text-gray-600 text-sm font-light">
+                                    {% for product_brand in product_brands %}
+                                    <tr class="border-b border-gray-200 hover:bg-gray-100">
+                                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                                            <div class="flex items-center">
+                                                <span class="font-medium">{{ product_brand.text }}</span>
+                                            </div>
+                                        </td>
+                                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                                            <div class="flex items-center">
+                                                <span class="font-medium">{{ product_brand.id }}</span>
+                                            </div>
+                                        </td>
+
+                                        <td class="py-3 px-6 text-center">
+                                            <div class="flex item-center justify-center">
+
+                                                <a href="{{ url_for('product.editProductBrand', id=product_brand.id) }}">
+                                                    <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                                        </svg>
+                                                    </div>
+                                                </a>
+
+                                                <a href="{{ url_for('product.deleteProductBrand', id=product_brand.id) }}">
+                                                    <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                        </svg>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            {% else %}
+                            <div class="text-center my-10">
+                                <h4 class="font-bold">Do not have any product brand in list!</h4>
+                                <div class="my-5">
+                                    <a href="/brand/add" class="rounded py-3 px-6 text-lg text-white capitalize bg-blue-500 hover:bg-blue-400">Add brand</a>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <!-- End of product brand section -->
+                        <div class="my-4"></div>
+                        <!-- End of product brand tab -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

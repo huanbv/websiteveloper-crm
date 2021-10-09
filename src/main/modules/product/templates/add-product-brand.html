@@ -1,74 +1,80 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    {% if product_brands %}
-    <h1>Add a brand</h1>
-    <form action="" method="POST">
-        {{ form.hidden_tag() }}
-        {% for field in form if not field.name == 'csrf_token' %}
-        <div class="form-group">
-            <div class="mb-4 pt-2">
-                <tbody>
-                {{ field.label(class="text-xl text-gray-600") }}
-                </tbody>
+{% extends "userbase.html" %}
 
-                <td>
-                    {{ field(class="py-2 px-3 rounded-lg border-2 border-blue-300 w-full mt-1 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent") }}
-                </td>
-            </div>
-            {% if field.errors %}
-            {% for error in field.errors %}
-            <div class="inline-flex items-center bg-white leading-none text-pink-600 rounded-full p-2 shadow text-teal text-sm">
-                <strong>Error:</strong> [{{ error }}]
-            </div>
+{% block title %} Add Product Brand Page {% endblock %}
 
-            {% endfor %}
-            {% endif %}
+{% block content %}
+<div class="w-full col-span-12 px-0 mx-auto overflow-x-hidden lg:pl-5 lg:col-span-10 xl:col-span-8 xl:pr-5 xl:overflow-visible min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-gray-100 text-black">
+    <div class="h-full ml-14 mt-14 mb-10 md:ml-64">
+        <div class="bg-white shadow-sm sm:rounded-lg mt-5">
+            <div class="p-6 bg-white border-b border-gray-200 rounded">
+
+                {% if product_brands %}
+                <h1>Add a brand</h1>
+                <form action="" method="POST">
+                    {{ form.hidden_tag() }}
+                    {% for field in form if not field.name == 'csrf_token' %}
+                    <div class="form-group">
+                        <div class="mb-4 pt-2">
+                            <tbody>
+                            {{ field.label(class="text-xl text-gray-600") }}
+                            </tbody>
+
+                            <td>
+                                {{ field(class="py-2 px-3 rounded-lg border-2 border-blue-300 w-full mt-1 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent") }}
+                            </td>
+                        </div>
+                        {% if field.errors %}
+                        {% for error in field.errors %}
+                        <div class="inline-flex items-center bg-white leading-none text-pink-600 rounded-full p-2 shadow text-teal text-sm">
+                            <strong>Error:</strong> [{{ error }}]
+                        </div>
+
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+
+                    {% endfor %}
+
+                    <p>
+                        <button type="submit" class='w-auto bg-blue-500 hover:bg-blue-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Submit</button>
+                        <a href="/product/brand">Cancel</a>
+                    </p>
+                </form>
+                {% else %}
+                <h1>Add a category</h1>
+                <form action="" method="POST">
+                    {{ form.hidden_tag() }}
+                    {% for field in form if not field.name == 'csrf_token' %}
+                    <div class="form-group">
+                        <div class="mb-4 pt-2">
+                            <tbody>
+                            {{ field.label(class="text-xl text-gray-600") }}
+                            </tbody>
+
+                            <td>
+                                {{ field(class="py-2 px-3 rounded-lg border-2 border-blue-300 w-full mt-1 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent") }}
+                            </td>
+                        </div>
+                        {% if field.errors %}
+                        {% for error in field.errors %}
+                        <div class="inline-flex items-center bg-white leading-none text-pink-600 rounded-full p-2 shadow text-teal text-sm">
+                            <strong>Error:</strong> [{{ error }}]
+                        </div>
+
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+
+                    {% endfor %}
+
+                    <p>
+                        <button type="submit" class='w-auto bg-blue-500 hover:bg-blue-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Submit</button>
+                        <a href="/product/category">Cancel</a>
+                    </p>
+                </form>
+                {% endif %}
+            </div>
         </div>
-
-        {% endfor %}
-
-        <p>
-            <button type="submit" class='w-auto bg-blue-500 hover:bg-blue-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Submit</button>
-            <a href="/product">Cancel</a>
-        </p>
-    </form>
-    {% else %}
-    <h1>Add a category</h1>
-    <form action="" method="POST">
-        {{ form.hidden_tag() }}
-        {% for field in form if not field.name == 'csrf_token' %}
-        <div class="form-group">
-            <div class="mb-4 pt-2">
-                <tbody>
-                {{ field.label(class="text-xl text-gray-600") }}
-                </tbody>
-
-                <td>
-                    {{ field(class="py-2 px-3 rounded-lg border-2 border-blue-300 w-full mt-1 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent") }}
-                </td>
-            </div>
-            {% if field.errors %}
-            {% for error in field.errors %}
-            <div class="inline-flex items-center bg-white leading-none text-pink-600 rounded-full p-2 shadow text-teal text-sm">
-                <strong>Error:</strong> [{{ error }}]
-            </div>
-
-            {% endfor %}
-            {% endif %}
-        </div>
-
-        {% endfor %}
-
-        <p>
-            <button type="submit" class='w-auto bg-blue-500 hover:bg-blue-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Submit</button>
-            <a href="/product">Cancel</a>
-        </p>
-    </form>
-    {% endif %}
-</body>
-</html>
+    </div>
+</div>
+{% endblock %}

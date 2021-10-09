@@ -6,7 +6,6 @@ from src.main.modules.product import ProductBrand, ProductCategory, Product
 
 from src.main.modules.product.forms import ProductBrandForm, ProductCategoryForm, ProductForm
 
-import secrets
 
 product_module = Blueprint('product', __name__, static_folder='static', template_folder='templates')
 
@@ -69,9 +68,57 @@ def addProductBrand():
 
         db.session.add(the_brand)
         db.session.commit()
-        return redirect('/product')
+        return redirect('/brand')
 
-    return render_template('add-product-brand.html', form=form, product_brands='product_brands')
+    return render_template('add-product-brand.html', form=form, product_brands='product_brands', user=current_user)
+
+
+@product_module.route('/brand', methods=['GET', 'POST'])
+@login_required
+def productBrand():
+    form = ProductBrandForm()
+
+    if current_user.is_authenticated:
+        if form.validate_on_submit():
+            text = form.inputName.data
+
+            the_brand = ProductBrand(text=text)
+            db.session.add(the_brand)
+            db.session.commit()
+            return redirect('/product/brand')
+
+        product_brands = ProductBrand.query.all()
+        return render_template('product-brand.html', user=current_user, product_brands=product_brands, form=form)
+    return redirect('/')
+
+
+@product_module.route('brand/edit/<int:id>', methods=['GET', 'POST'])
+@login_required
+def editProductBrand(id):
+    form = ProductBrandForm()
+
+    the_brand = db.session.query(ProductBrand).get(id)
+    if form.validate_on_submit():
+
+        the_brand.text = form.inputName.data
+
+        db.session.commit()
+        return redirect('/product/brand')
+
+    form.inputName.default = the_brand.text
+
+    form.process()
+
+    return render_template('/add-product-brand.html', form=form, user=current_user)
+
+
+@product_module.route('brand/delete/<int:id>', methods=['GET', 'POST'])
+@login_required
+def deleteProductBrand(id):
+    the_product_brand = db.session.query(ProductBrand).filter_by(id=id).first()
+    db.session.delete(the_product_brand)
+    db.session.commit()
+    return redirect(f"/product/brand")
 
 
 @product_module.route('category/add', methods=['GET', 'POST'])
@@ -88,6 +135,56 @@ def addProductCategory():
 
         db.session.add(the_category)
         db.session.commit()
-        return redirect('/product')
+        return redirect('/product/category')
 
-    return render_template('add-product-brand.html', form=form)
+    return render_template('add-product-brand.html', form=form, user=current_user)
+
+
+@product_module.route('/category', methods=['GET', 'POST'])
+@login_required
+def productCategory():
+
+    form = ProductCategoryForm()
+    if current_user.is_authenticated:
+        if form.validate_on_submit():
+            text = form.inputName.data
+
+            the_category = ProductCategory(text=text)
+            db.session.add(the_category)
+            db.session.commit()
+            return redirect('/product/category')
+
+        product_categories = ProductCategory.query.all()
+        return render_template('product-category.html', user=current_user, product_categories=product_categories,
+                               form=form)
+    return redirect('/')
+
+
+
+@product_module.route('category/edit/<int:id>', methods=['GET', 'POST'])
+@login_required
+def editProductCategory(id):
+    form = ProductCategoryForm()
+
+    the_category = db.session.query(ProductCategory).get(id)
+    if form.validate_on_submit():
+
+        the_category.text = form.inputName.data
+
+        db.session.commit()
+        return redirect('/product/category')
+
+    form.inputName.default = the_category.text
+
+    form.process()
+
+    return render_template('/add-product-brand.html', form=form, user=current_user)
+
+
+@product_module.route('category/delete/<int:id>', methods=['GET', 'POST'])
+@login_required
+def deleteProductCategory(id):
+    the_product_category = db.session.query(ProductCategory).filter_by(id=id).first()
+    db.session.delete(the_product_category)
+    db.session.commit()
+    return redirect(f"/product/category")
