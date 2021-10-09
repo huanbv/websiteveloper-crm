@@ -54,6 +54,55 @@ def addProduct():
     return render_template('add-product.html', form=form, user=current_user)
 
 
+@product_module.route('edit/<int:id>', methods=['GET', 'POST'])
+@login_required
+def editProduct(id):
+    form = ProductForm()
+    # re-index product brand form product brand table
+    # on get request -- showing the form view
+    form.inputProductBrand.choices = [(p.id, p.text) for p in db.session.query(ProductBrand).all()]
+
+    # re-index product category form product category table
+    form.inputProductCategory.choices = [(p.id, p.text) for p in db.session.query(ProductCategory).all()]
+
+
+    the_product = db.session.query(Product).get(id)
+    if form.validate_on_submit():
+
+        the_product.name = form.inputName.data
+        the_product.price = form.inputPrice.data
+        the_product.discount = form.inputDiscount.data
+        the_product.stock = form.inputStock.data
+        the_product.colors = form.inputColor.data
+        the_product.description = form.inputDescription.data
+        the_product.product_brand_id = form.inputProductBrand.data
+        the_product.product_category_id = form.inputProductCategory.data
+
+        db.session.commit()
+        return redirect('/product')
+
+    form.inputName.default = the_product.name
+    form.inputPrice.default = the_product.price
+    form.inputDiscount.default = the_product.discount
+    form.inputStock.default = the_product.stock
+    form.inputColor.default = the_product.colors
+    form.inputDescription.default = the_product.description
+    form.inputProductCategory.default = the_product.product_category_id
+
+    form.process()
+
+    return render_template('/add-product-brand.html', form=form, user=current_user)
+
+
+@product_module.route('delete/<int:id>', methods=['GET', 'POST'])
+@login_required
+def deleteProduct(id):
+    the_product = db.session.query(Product).filter_by(id=id).first()
+    db.session.delete(the_product)
+    db.session.commit()
+    return redirect(f"/product")
+
+
 @product_module.route('brand/add', methods=['GET', 'POST'])
 @login_required
 def addProductBrand():
@@ -143,12 +192,10 @@ def addProductCategory():
 @product_module.route('/category', methods=['GET', 'POST'])
 @login_required
 def productCategory():
-
     form = ProductCategoryForm()
     if current_user.is_authenticated:
         if form.validate_on_submit():
             text = form.inputName.data
-
             the_category = ProductCategory(text=text)
             db.session.add(the_category)
             db.session.commit()
