@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template, redirect, request, url_for, current_app, flash
 from flask_login import login_required, current_user
+from src.main.modules.cart import cart_controller
+
 
 from src import db
 from src.main.modules.product import ProductBrand, ProductCategory, Product
@@ -16,6 +18,22 @@ def product():
     if current_user.is_authenticated:
         products = Product.query.all()
         return render_template('product.html', user=current_user, products=products)
+    return redirect('/')
+
+
+@product_module.route('/view/<int:id>', methods=['GET'])
+@login_required
+def viewProductDetails(id):
+
+    if current_user.is_authenticated:
+
+        the_product = db.session.query(Product).get(id)
+        # if not the_product.user == current_user:
+        #     flash('You don\'t have any product information')
+        #     return redirect('/')
+
+        return render_template('product-details.html', product=the_product,  user=current_user)
+
     return redirect('/')
 
 
@@ -128,13 +146,14 @@ def productBrand():
     form = ProductBrandForm()
 
     if current_user.is_authenticated:
-        if form.validate_on_submit():
-            text = form.inputName.data
-
-            the_brand = ProductBrand(text=text)
-            db.session.add(the_brand)
-            db.session.commit()
-            return redirect('/product/brand')
+        addProductBrand()
+        # if form.validate_on_submit():
+        #     text = form.inputName.data
+        #
+        #     the_brand = ProductBrand(text=text)
+        #     db.session.add(the_brand)
+        #     db.session.commit()
+        #     return redirect('/product/brand')
 
         product_brands = ProductBrand.query.all()
         return render_template('product-brand.html', user=current_user, product_brands=product_brands, form=form)
@@ -194,12 +213,7 @@ def addProductCategory():
 def productCategory():
     form = ProductCategoryForm()
     if current_user.is_authenticated:
-        if form.validate_on_submit():
-            text = form.inputName.data
-            the_category = ProductCategory(text=text)
-            db.session.add(the_category)
-            db.session.commit()
-            return redirect('/product/category')
+        addProductCategory()
 
         product_categories = ProductCategory.query.all()
         return render_template('product-category.html', user=current_user, product_categories=product_categories,

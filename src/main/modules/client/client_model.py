@@ -1,3 +1,7 @@
+import json
+from datetime import datetime
+
+
 from sqlalchemy import ForeignKey, Sequence
 from sqlalchemy.orm import relationship
 
@@ -62,3 +66,34 @@ class ClientStatus(db.Model):
 
     def __repr__(self):
         return '<Client Status: {} with {}>'.format(self.id, self.text)
+
+
+class JsonEcodedDict(db.TypeDecorator):
+    impl = db.Text
+
+    def process_bind_param(self, value, dialect):
+        if value is None:
+            return '{}'
+        else:
+            return json.dumps(value)
+
+    def process_result_value(self, value, dialect):
+        if value is None:
+            return {}
+        else:
+            return json.loads(value)
+
+
+class ClientOrder(db.Model):
+    __table_args__ = {'extend_existing': True}
+
+    id = db.Column(db.Integer, Sequence('client_order_id_seg'), primary_key=True)
+    invoice = db.Column(db.String(50), unique=True, nullable=False)
+    status = db.Column(db.String(50), default='Pending', nullable=False)
+    # client_id = db.Column(db.Integer, unique=False, nullable=False)
+    date_created = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+    # orders = db.Column(db.Text)
+    orders = db.Column(JsonEcodedDict)
+
+    def __repr__(self):
+        return '<Client Order: {} with {}>'.format(self.invoice)

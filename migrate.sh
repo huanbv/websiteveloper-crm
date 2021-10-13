@@ -2,6 +2,7 @@ export APP_CONFIG_FILE=config/development.py
 export FLASK_ENV=development
 export FLASK_APP=wsgi.py
 
+
 # adding paths
 ROOT_DIR=.
 MAIN_DIR=./src/main/

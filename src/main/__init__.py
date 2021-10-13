@@ -35,6 +35,8 @@ class App(Flask):
         from src.main.modules.currency import currency_module
         from src.main.modules.country import country_module
         from src.main.modules.product import product_module
+        from src.main.modules.cart import cart_module
+
 
         self.register_blueprint(index_module, url_prefix="/")
         self.register_blueprint(auth_module, url_prefix="/auth")
@@ -46,6 +48,8 @@ class App(Flask):
         self.register_blueprint(currency_module, url_prefix="/currency")
         self.register_blueprint(country_module, url_prefix="/country")
         self.register_blueprint(product_module, url_prefix="/product")
+        self.register_blueprint(cart_module, url_prefix="/cart")
+
 
 
 

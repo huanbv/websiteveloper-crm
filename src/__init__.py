@@ -2,7 +2,6 @@ import sys
 import os
 from pathlib import Path
 
-
 def add_sys_paths():
     print('\n[ADDING PATHS TO THE PYTHON ENVIRONMENT...]')
 

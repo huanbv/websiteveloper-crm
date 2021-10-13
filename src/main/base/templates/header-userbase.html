@@ -17,6 +17,11 @@
         <input type="search" name="" id="" placeholder="Search" class="w-full pl-3 text-sm text-black outline-none focus:outline-none bg-transparent" />
       </div>
       <ul class="flex items-center">
+        <a href="{{url_for('cart.viewCart')}}" class="flex items-center hover:bg-gray-100 rounded-full py-1 px-0.5 pr-2">
+        <li>
+          Cart ({{session['Shoppingcart']|length}})
+        </li>
+        </a>
         <!-- profile menu -->
         <li>
           <a href="/auth/profile" class="flex items-center hover:bg-gray-100 rounded-full py-1 px-0.5 pr-2">
@@ -301,6 +306,64 @@
                   </a>
                   <a href="{{ url_for('client.add') }}" role="menuitem" class="block p-2 text-sm transition-colors duration-200 rounded-md hover:text-blue-500">
                     Add Customer
+                  </a>
+                </div>
+              </div>
+        </li>
+        <li>
+          <div x-data="{ isActive: false, open: false }">
+                <!-- active classes 'bg-primary-100 dark:bg-primary' -->
+                <a href="#" @click="$event.preventDefault(); open = !open" class="flex h-11 items-center px-4 py-2 text-black-800 transition-colors rounded-lg focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" :class="{ 'bg-primary-100': isActive || open }" role="button" aria-haspopup="true" :aria-expanded="(open || isActive) ? 'true' : 'false'" aria-expanded="false">
+
+                  <svg class="inline w-4 h-4 mt-1 transition-transform duration-200 transform md:m-1" viewBox="0 0 128.000000 128.000000"
+                   preserveAspectRatio="xMidYMid meet">
+
+                  <g transform="translate(0.000000,128.000000) scale(0.100000,-0.100000)"
+                  fill="#000000" stroke="none">
+                  <path d="M1064 1261 c-38 -23 -59 -76 -45 -113 9 -23 2 -33 -77 -111 -84 -84
+                  -88 -86 -124 -81 -27 5 -46 1 -72 -14 -33 -20 -36 -20 -95 -4 -52 14 -61 20
+                  -66 43 -8 36 -49 76 -85 84 -66 14 -140 -59 -125 -124 5 -25 -1 -33 -72 -89
+                  -74 -59 -80 -62 -119 -56 -114 16 -176 -116 -87 -186 31 -24 90 -26 122 -4 31
+                  22 52 76 45 112 -5 27 0 34 70 91 75 61 77 62 111 51 40 -13 71 -6 103 23 21
+                  20 25 20 79 6 52 -13 57 -17 70 -54 18 -55 55 -85 102 -85 69 0 125 73 102
+                  132 -9 23 -2 32 77 110 86 84 88 85 130 81 52 -6 88 15 108 64 28 66 -24 143
+                  -96 143 -14 0 -39 -9 -56 -19z"/>
+                  <path d="M1016 834 c-3 -9 -6 -189 -6 -400 l0 -384 -50 0 -50 0 0 224 c0 123
+                  -3 231 -6 240 -9 24 -199 24 -208 0 -3 -9 -6 -117 -6 -240 l0 -224 -50 0 -50
+                  0 0 283 c0 207 -3 286 -12 295 -16 16 -180 16 -196 0 -9 -9 -12 -88 -12 -295
+                  l0 -283 -50 0 -50 0 0 144 c0 79 -3 151 -6 160 -9 24 -199 24 -208 0 -3 -9 -6
+                  -80 -6 -159 0 -141 0 -144 -22 -147 -15 -2 -23 -10 -23 -23 0 -20 7 -20 635
+                  -20 628 0 635 0 635 20 0 13 -8 21 -22 23 l-23 3 0 384 c0 211 -3 390 -6 399
+                  -9 24 -199 24 -208 0z"/>
+                  </g>
+                 </svg>
+
+                  <span class="ml-2 text-sm tracking-wide truncate font-semibold">Sales</span>
+
+                  <span aria-hidden="true" class="ml-auto">
+                    <!-- active class 'rotate-180' -->
+                    <svg class="w-4 h-4 transition-transform transform" :class="{ 'rotate-180': open }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                  </span>
+                </a>
+                <div x-show="open" class="capitalize text-sm tracking-wide truncate text-black-400 font-regular mt-2 space-y-2 px-7" role="menu" arial-label="Components" style="display: none;">
+                  <!-- active & hover classes 'text-gray-700 dark:text-light' -->
+                  <!-- inActive classes 'text-gray-400 dark:text-gray-400' -->
+                  <a href="#" role="menuitem" class="block p-2 text-sm transition-colors duration-200 rounded-md hover:text-blue-500">
+                    Proposals
+                  </a>
+                  <a href="#" role="menuitem" class="block p-2 text-sm transition-colors duration-200 rounded-md hover:text-blue-500">
+                    Estimates
+                  </a>
+                  <a href="#" role="menuitem" class="block p-2 text-sm transition-colors duration-200 rounded-md hover:text-blue-500">
+                    Invoices
+                  </a>
+                  <a href="#" role="menuitem" class="block p-2 text-sm transition-colors duration-200 rounded-md hover:text-blue-500">
+                    Payments
+                  </a>
+                  <a href="#" role="menuitem" class="block p-2 text-sm transition-colors duration-200 rounded-md hover:text-blue-500">
+                    Credit Notes
                   </a>
                 </div>
               </div>
