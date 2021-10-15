@@ -350,7 +350,7 @@
                 <div x-show="open" class="capitalize text-sm tracking-wide truncate text-black-400 font-regular mt-2 space-y-2 px-7" role="menu" arial-label="Components" style="display: none;">
                   <!-- active & hover classes 'text-gray-700 dark:text-light' -->
                   <!-- inActive classes 'text-gray-400 dark:text-gray-400' -->
-                  <a href="#" role="menuitem" class="block p-2 text-sm transition-colors duration-200 rounded-md hover:text-blue-500">
+                  <a href="/invoice" role="menuitem" class="block p-2 text-sm transition-colors duration-200 rounded-md hover:text-blue-500">
                     Proposals
                   </a>
                   <a href="#" role="menuitem" class="block p-2 text-sm transition-colors duration-200 rounded-md hover:text-blue-500">
@@ -529,10 +529,10 @@
                   <!-- active & hover classes 'text-gray-700 dark:text-light' -->
                   <!-- inActive classes 'text-gray-400 dark:text-gray-400' -->
                   <a href="/task-checklist-item" role="menuitem" class="block p-2 text-sm transition-colors duration-200 rounded-md hover:text-blue-500">
-                    All task
+                    All to-do
                   </a>
-                  <a href="{{ url_for('task.add') }}" role="menuitem" class="block p-2 text-sm transition-colors duration-200 rounded-md hover:text-blue-500">
-                    Add task
+                  <a href="{{ url_for('task_checklist_item.add') }}" role="menuitem" class="block p-2 text-sm transition-colors duration-200 rounded-md hover:text-blue-500">
+                    Add to-do
                   </a>
                 </div>
               </div>

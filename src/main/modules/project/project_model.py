@@ -34,6 +34,18 @@ class Project(db.Model):
         self.project_status_id = project_status_id
         self.client_id = client_id
 
+    def get_status_class(self):
+        if self.project_status_id == 1:
+            return "border border-gray-500 text-gray-700"
+        elif self.project_status_id == 2:
+            return "border border-blue-500 text-blue-700"
+        elif self.project_status_id == 3:
+            return "border border-yellow-500 text-yellow-700"
+        elif self.project_status_id == 4:
+            return "border border-pink-500 text-pink-700"
+        else:
+            return "border border-green-500 text-green-700"
+
 
 class ProjectStatus(db.Model):
     id = db.Column(db.Integer, Sequence('project_status_id_seq'), primary_key=True)

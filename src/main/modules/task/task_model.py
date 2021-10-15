@@ -44,6 +44,27 @@ class Task(db.Model):
         self.project_id = project_id
 
 
+    def get_status_class(self):
+        if self.task_status_id == 1:
+            return "border border-gray-500 text-gray-700"
+        elif self.task_status_id == 2:
+            return "border border-blue-500 text-blue-700"
+        elif self.task_status_id == 3:
+            return "border border-yellow-500 text-yellow-700"
+        elif self.task_status_id == 4:
+            return "border border-pink-500 text-pink-700"
+        else:
+            return "border border-green-500 text-green-700"
+
+    def get_priority_class(self):
+        if self.task_priority_id == 1:
+            return "border border-black-500 text-black-700"
+        elif self.task_priority_id == 2:
+            return "border border-blue-500 text-blue-700"
+        else:
+            return "border border-red-500 text-red-700"
+
+
 class TaskStatus(db.Model):
     id = db.Column(db.Integer, Sequence('task_status_id_seq'), primary_key=True)
     name = db.Column(db.String(50), nullable=False)

@@ -6,15 +6,6 @@
 <div class="w-full col-span-12 px-0 mx-auto overflow-x-hidden lg:pl-5 lg:col-span-10 xl:col-span-8 xl:pr-5 xl:overflow-visible min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-gray-100 text-black">
     <div class="h-full ml-14 mt-14 mb-10 md:ml-64">
         {{session['Shoppingcart']}}
-        Invoice: {{orders.invoice}}
-        <br>
-        Status: {{orders.status}}
-        <br>
-        Client name: -
-        <br>
-        Client email: -
-        <br>
-        Client co: -
 <table class=" w-full table-auto mt-5 rounded">
                 <thead>
                 <tr class="bg-gray-200 text-gray-600 capitalize text-sm leading-normal">
@@ -25,10 +16,12 @@
                     <th class="py-3 px-6 text-center">Quantity</th>
                     <th class="py-3 px-6 text-center">Discount</th>
                     <th class="py-3 px-6 text-center">Subtotal</th>
+                    <th class="py-3 px-6 text-center">Up Date</th>
+                    <th class="py-3 px-6 text-center">Delete</th>
                 </tr>
                 </thead>
     <tbody class="text-gray-600 text-sm font-light">
-                {% for key, product in orders.orders.items() %}
+                {% for key, product in session['Shoppingcart'].items() %}
                 {% set discount = "%0.2f" |format((product.discount/100) * product.price|float) %}
 
                 <tr class="border-b border-gray-200 hover:bg-gray-100">
@@ -45,7 +38,15 @@
                     <form action="{{url_for('cart.updateCart', code=key)}}" method="POST">
                     <td class="py-3 px-6 text-left whitespace-nowrap">
                         <div class="flex items-center">
-                                {{ product.color|capitalize }}
+                            {% set colors = product.colors.split(',') %}
+                                <label for="colors">Colors: </label>
+                                <select name="colors" id="colors">
+                                    <option value="{{product.color}}" style="display:none;">{{product.color|capitalize}}</option>
+                                    {% for color in colors %}
+                                    {% set col = color.split(':') %}
+                                    <option value="{{col[0]}}">{{col[0] | capitalize }}</option>
+                                    {% endfor %}
+                                </select>
                         </div>
                     </td>
                     <td class="py-3 px-6 text-left whitespace-nowrap">
@@ -56,7 +57,7 @@
                     <td class="py-3 px-6 text-left whitespace-nowrap">
                         <div class="flex items-center">
                             <span class="font-medium">
-                                {{ product.quantity }}"
+                                <input type="number" name="quantity" min="1" max="10" value="{{ product.quantity }}">
                             </span>
                         </div>
                     </td>
@@ -73,23 +74,29 @@
 
                     <td class="py-3 px-6 text-left whitespace-nowrap">
                         <div class="flex items-center">
-                            <span class="font-medium">{{"%.2f"|format((subTotal|float) - discount|float)}}</span>
+                            <span class="font-medium">{{"%.2f"|format((subtotal|float) - discount|float)}}</span>
+                        </div>
+                    </td>
+
+                    <td class="py-3 px-6 text-left whitespace-nowrap">
+                        <div class="flex items-center">
+                            <button type="submit" class="font-medium">Update</button>
                         </div>
                     </td>
                         </form>
-
+                    <td class="py-3 px-6 text-left whitespace-nowrap">
+                        <div class="flex items-center">
+                            <a href="{{url_for('cart.deleteItem', id=key)}}"> <span class="font-medium">Remove</span></a>
+                        </div>
+                    </td>
 
                 </tr>
                 {% endfor %}
                 <td></td>
-                <td><a href="#">Check out</a></td>
+                <td><a href="{{url_for('client.get_order')}}">Order now</a></td>
                 <td colspan="3">Tax: {{tax}}</td>
-                <td colspan="3">Grand Total: {{grandTotal}}</td>
-                <td>
-                <form action="{{url_for('client.get_pdf', invoice=client_order.invoice)}}" method="post">
-                    <button type="submit"> Get pdf</button>
-                </form>
-                </td>
+                <td colspan="3">Grand Total: {{grandtotal}}</td>
+                <td><a href="{{url_for('cart.clearcart')}}">Clear Cart</a></td>
                 </tbody>
 </table>
 

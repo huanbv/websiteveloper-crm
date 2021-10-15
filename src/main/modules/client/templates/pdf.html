@@ -13,18 +13,17 @@
   <body>
   
 <div class="container mt-4">
-    {% include '_messages.html' %}
     <div class="row">
         <div class="col-md-12">
             <b style="float: right;">Inoice: {{orders.invoice}} </b> 
             <br>
             Status: {{orders.status}}
             <br>
-            Customer name: {{customer.name}}
+            Customer name:
             <br>
-            Customer email: {{customer.email}}
+            Customer email:
             <br>
-            Customer contact: {{customer.contact}}
+            Customer contact:
             <br>
             <br>
         <table class="table table-sm">
@@ -43,7 +42,7 @@
                 <tr>
                     <td>{{loop.index}}</td>
                     <td>{{product.name}}</td>
-                    <form action="{{url_for('updatecart', code=key)}}" method="post">
+                    <form action="{{url_for('cart.updatecart', code=key)}}" method="post">
                     <td> 
                         {{product.color|capitalize}}
                     </td>

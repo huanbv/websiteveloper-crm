@@ -61,6 +61,7 @@ def add():
         db.session.commit()
         return redirect('/client')
 
+    form.inputClientStatus.render_kw = {'readonly': 'true', 'style': 'pointer-events: none'}
     return render_template('add-client.html', form=form, user=current_user)
 
 
@@ -192,17 +193,16 @@ def get_pdf(invoice):
         if request.method == "POST":
             orders = ClientOrder.query.filter_by(invoice=invoice).order_by(ClientOrder.id.desc()).first()
             for _key, product in orders.orders.items():
-                discount = (product['discount'] / 100) * float(product['price'])
+                discount = (product['discount']/100) * float(product['price'])
                 subTotal += float(product['price']) * int(product['quantity'])
                 subTotal -= discount
                 tax = ("%.2f" % (.06 * float(subTotal)))
-                grandTotal = ("%.2f" % (1.06 * float(subTotal)))
+                grandTotal = float("%.2f" % (1.06 * subTotal))
 
-            rendered = render_template('/pdf.html', invoice=invoice, tax=tax, grandTotal=grandTotal, orders=orders,
-                                       user=current_user)
+            rendered = render_template('/pdf.html', invoice=invoice, tax=tax, grandTotal=grandTotal, orders=orders)
             pdf = pdfkit.from_string(rendered, False)
             response = make_response(pdf)
-            response.headers['Content-Type'] = 'application/pdf'
-            response.headers['Content-Disposition'] = 'inline; filename='+invoice+'.pdf'
+            response.headers['content-Type'] ='application/pdf'
+            response.headers['content-Disposition'] ='inline; filename='+invoice+'.pdf'
             return response
-    return request(url_for('client.orders', invoice=invoice, user=current_user))
+    return request(url_for('orders'))

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, flash
+from flask import Blueprint, render_template, redirect, flash, request
 from flask_login import login_required, current_user
 
 from src import db
@@ -47,6 +47,7 @@ def add():
         db.session.commit()
         return redirect('/task')
 
+    form.inputTaskChecklistStatus.render_kw = {'readonly': 'true', 'style': 'pointer-events: none'}
     return render_template('add-task-checklist-item.html', form=form, user=current_user)
 
 
@@ -74,8 +75,12 @@ def edit(id):
             the_task_checklist_item.task_checklist_status_id = form.inputTaskChecklistStatus.data
             the_task_checklist_item.task_id = form.inputTask.data
 
-            db.session.commit()
-            return redirect('/task')
+            # db.session.commit()
+            # return redirect('/task')
+            # invoking this to update the associated project status
+            update_task_status(the_task_checklist_item.task)
+            return redirect(f"/task")
+            # return redirect(f"/task/{request.args.get('task_id')}")
 
         form.inputName.default = the_task_checklist_item.name
         form.inputTaskChecklistStatus.default = the_task_checklist_item.task_checklist_status_id
@@ -85,6 +90,28 @@ def edit(id):
         return render_template('/add-task-checklist-item.html', form=form, user=current_user)
 
     return redirect("/task-checklist-item")
+
+
+def update_task_status(the_task):
+    in_progress_tasks = list(filter(lambda task_checklist_item: task_checklist_item.task_checklist_status_id == 2,
+                                    the_task.task_checklist_items))
+    # at least 1 in progress task is exists
+    if len(in_progress_tasks) >= 1:
+        the_task.task_status_id = 2
+        db.session.commit()
+        return
+
+    finished_tasks = list(filter(lambda task_checklist_item: task_checklist_item.task_checklist_status_id == 5,
+                                    the_task.task_checklist_items))
+    # all the tasks in the_project have completed
+    if len(finished_tasks) == len(the_task.task_checklist_items):
+        the_task.task_status_id = 5
+        db.session.commit()
+        return
+
+    # otherwise, it's not started
+    the_task.task_status_id = 1
+    db.session.commit()
 
 
 @task_checklist_item_module.route('/delete/<int:id>', methods=['GET', 'POST'])

@@ -60,6 +60,13 @@ class Client(db.Model):
         self.currency_id = currency_id
 
 
+    def get_status_class(self):
+        if self.client_status_id == 1:
+            return "border border-green-500 text-green-700"
+        else:
+            return "border border-red-500 text-red-700"
+
+
 class ClientStatus(db.Model):
     id = db.Column(db.Integer, Sequence('client_status_id_seq'), primary_key=True)
     text = db.Column(db.String(50), nullable=False)

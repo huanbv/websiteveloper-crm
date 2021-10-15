@@ -79,7 +79,6 @@ def updateCart(code):
         return redirect(url_for('/'))
     if request.method == "POST":
         quantity = int(request.form.get('quantity'))
-
         color = request.form.get('colors')
         try:
             session.modified = True
