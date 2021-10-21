@@ -17,11 +17,7 @@
         <input type="search" name="" id="" placeholder="Search" class="w-full pl-3 text-sm text-black outline-none focus:outline-none bg-transparent" />
       </div>
       <ul class="flex items-center">
-        <a href="{{url_for('cart.viewCart')}}" class="flex items-center hover:bg-gray-100 rounded-full py-1 px-0.5 pr-2">
-        <li>
-          Cart ({{session['Shoppingcart']|length}})
-        </li>
-        </a>
+
         <!-- profile menu -->
         <li>
           <a href="/auth/profile" class="flex items-center hover:bg-gray-100 rounded-full py-1 px-0.5 pr-2">

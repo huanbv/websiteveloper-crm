@@ -95,3 +95,4 @@ class TaskTag(db.Model):
     __table_args__ = (
         PrimaryKeyConstraint(task_id, tag_id),
     )
+

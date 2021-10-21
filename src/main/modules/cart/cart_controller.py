@@ -1,7 +1,6 @@
 from flask import Blueprint, render_template, redirect, request, session, url_for, flash
 from flask_login import login_required, current_user
 
-from src import db
 from src.main.modules.product.product_model import Product
 
 cart_module = Blueprint('cart', __name__, static_folder='static', template_folder='templates')
@@ -41,7 +40,6 @@ def addCart():
         quantity = int(request.form.get('quantity'))
         color = request.form.get('colors')
         product = Product.query.filter_by(id=product_id).first()
-        # product = Product.query(Product).filter_by(id=product_id).first()
 
         if request.method == "POST":
             dictItems = {product_id: {

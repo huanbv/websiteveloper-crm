@@ -97,10 +97,11 @@ class ClientOrder(db.Model):
     id = db.Column(db.Integer, Sequence('client_order_id_seg'), primary_key=True)
     invoice = db.Column(db.String(50), unique=True, nullable=False)
     status = db.Column(db.String(50), default='Pending', nullable=False)
-    # client_id = db.Column(db.Integer, unique=False, nullable=False)
     date_created = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
-    # orders = db.Column(db.Text)
     orders = db.Column(JsonEcodedDict)
+
+    client_id = db.Column(db.Integer, ForeignKey('client.id'))
+    client = relationship('Client', backref='client_orders')
 
     def __repr__(self):
         return '<Client Order: {} with {}>'.format(self.invoice)

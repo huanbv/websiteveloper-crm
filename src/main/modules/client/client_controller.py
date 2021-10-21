@@ -148,11 +148,11 @@ def update_shopping_cart():
 @login_required
 def get_order():
     if current_user.is_authenticated:
-        # client_id = current_user.id
+        client_id = current_user.email
         invoice = secrets.token_hex(5)
         update_shopping_cart
         try:
-            the_order = ClientOrder(invoice=invoice, orders=session['Shoppingcart'])
+            the_order = ClientOrder(invoice=invoice, client_id=client_id,  orders=session['Shoppingcart'])
             db.session.add(the_order)
             db.session.commit()
             session.pop('Shoppingcart')
@@ -164,7 +164,7 @@ def get_order():
             return redirect(url_for('cart.viewCart'))
 
 
-@client_module.route('/orders/<invoice>')
+@client_module.route('/order/<invoice>')
 @login_required
 def orders(invoice):
     if current_user.is_authenticated:

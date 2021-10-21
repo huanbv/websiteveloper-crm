@@ -55,7 +55,7 @@
                 <tbody class="text-gray-600 text-sm font-light">
                 {% for product in products %}
                 <tr class="border-b border-gray-200 hover:bg-gray-100">
-                    <td class="py-3 px-6 text-left whitespace-nowrap">
+                    <td class="py-3 px-6 text-left">
                         <div class="flex items-center">
                             <span class="font-medium">{{ product.name }}</span>
                         </div>
@@ -75,13 +75,13 @@
                         <span class="bg-purple-200 text-purple-600 py-1 px-3 rounded-full text-xs">{{ product.price }}</span>
                     </td>
 
-                    <td class="py-3 px-6 text-left whitespace-nowrap">
+                    <td class="py-3 px-6 text-left">
                         <div class="flex items-center">
                             <span class="font-medium">{{ product.product_category.text }}</span>
                         </div>
                     </td>
 
-                    <td class="py-3 px-6 text-left whitespace-nowrap">
+                    <td class="py-3 px-6 text-left">
                         <div class="flex items-center">
                             <span class="font-medium">{{ product.pub_date }}</span>
                         </div>
