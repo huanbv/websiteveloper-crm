@@ -161,7 +161,7 @@ def get_order():
         except Exception as e:
             print(e)
             flash('Some thing went wrong while get order', 'danger')
-            return redirect(url_for('cart.viewCart'))
+            return redirect(url_for('invoice.view_cart'))
 
 
 @client_module.route('/order/<invoice>')

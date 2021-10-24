@@ -31,8 +31,8 @@ def view_cart():
         products = Product.query.all()
 
         if 'Shoppingcart' not in session or len(session['Shoppingcart']) <= 0:
-            return redirect(url_for('invoice.view_cart'))
-            # return redirect('/invoice')
+            # return redirect(url_for('invoice.view_cart'))
+            return render_template('invoice_items.html', user=current_user, products=products)
         subtotal = 0
         grandtotal = 0
         for key, product in session['Shoppingcart'].items():
@@ -43,7 +43,9 @@ def view_cart():
             grandtotal = float("%.2f" % (1.06 * subtotal))
 
         return render_template('invoice_items.html', user=current_user, tax=tax, grandtotal=grandtotal, products=products)
-    return redirect('/')
+    # return redirect('/')
+    return render_template('invoice_items.html', user=current_user)
+
 
 
 @invoice_module.route('/add-to-cart', methods=['POST'])

@@ -92,6 +92,7 @@
             <!-- end left section -->
 
             <!-- right section -->
+
             <div class="w-full lg:w-2/5">
                 <!-- header -->
                 <div class="flex flex-row items-center justify-between px-5 mt-5">
@@ -101,20 +102,48 @@
                     </div>
                     <div class="font-semibold">
                         <span class="px-4 py-2 rounded-md bg-red-100 text-red-500">
-                            <a href="{{url_for('invoice.clear_cart')}}">Clear All</a>
+                            <a href="{{ url_for('invoice.clear_cart') }}">Clear All</a>
+
                         </span>
-                        <span class="px-4 py-2 rounded-md bg-gray-100 text-gray-800">
-                            Setting
+                        <span onclick="openFullscreen();" class="px-4 py-2 rounded-md bg-gray-100 text-gray-800">
+                            +
                         </span>
+                        <span onclick="closeFullscreen();" class="px-4 py-2 rounded-md bg-gray-100 text-gray-800">
+                            -
+                        </span>
+                        <script>
+                        var elem = document.documentElement;
+                        function openFullscreen() {
+                          if (elem.requestFullscreen) {
+                            elem.requestFullscreen();
+                          } else if (elem.webkitRequestFullscreen) { /* Safari */
+                            elem.webkitRequestFullscreen();
+                          } else if (elem.msRequestFullscreen) { /* IE11 */
+                            elem.msRequestFullscreen();
+                          }
+                        }
+
+                        function closeFullscreen() {
+                          if (document.exitFullscreen) {
+                            document.exitFullscreen();
+                          } else if (document.webkitExitFullscreen) { /* Safari */
+                            document.webkitExitFullscreen();
+                          } else if (document.msExitFullscreen) { /* IE11 */
+                            document.msExitFullscreen();
+                          }
+                        }
+                        </script>
                     </div>
                 </div>
                 <!-- end header -->
 
                 <!-- order list -->
+
                 <div class="px-4 mt-5">
                     <div class="text-xl text-center">
                         Select Customer
                     </div>
+                {% if 'Shoppingcart' in session %}
                 <table class=" w-full table-auto mt-5 rounded">
                     <tbody class="text-gray-600 text-sm font-light">
                     {% for key, product in session['Shoppingcart'].items() %}
@@ -181,7 +210,15 @@
 
                     </tbody>
                 </table>
+                {% else %}
+
+                <h5 class="text-secondary center mb-0 mt-1 ml-3 text-center">
+                    No Order Yet.
+                </h5>
+
+                {% endif %}
                 </div>
+
                 <!-- end order list -->
 
                 <!-- totalItems -->
