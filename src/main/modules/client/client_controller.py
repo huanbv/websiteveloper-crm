@@ -144,15 +144,20 @@ def update_shopping_cart():
     return update_shopping_cart
 
 
-@client_module.route('/get-order')
+@client_module.route('/get-order', methods=['GET', 'POST'])
 @login_required
 def get_order():
     if current_user.is_authenticated:
-        client_id = current_user.email
+        # client_id = current_user.email
+        client_id = request.form.get('client_id')
+
         invoice = secrets.token_hex(5)
         update_shopping_cart
         try:
             the_order = ClientOrder(invoice=invoice, client_id=client_id,  orders=session['Shoppingcart'])
+
+            # the_order.client_id = client_id
+
             db.session.add(the_order)
             db.session.commit()
             session.pop('Shoppingcart')

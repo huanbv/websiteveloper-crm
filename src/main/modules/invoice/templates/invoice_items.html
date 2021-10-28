@@ -48,7 +48,7 @@
                     {% for product in products %}
                         <div class="px-3 py-3 flex flex-col border border-gray-200 rounded-md justify-between text-center hover:bg-gray-200">
                             <div class="flex flex-row justify-between items-center">
-                                <img src="https://source.unsplash.com/sc5sTPMrVfk/600x600" class="object-cover rounded-md" alt="">
+                                <img src="https://tinyurl.com/ye28l2xr" class="object-cover rounded-md" alt="">
                             </div>
 
                             <div>
@@ -105,34 +105,6 @@
                             <a href="{{ url_for('invoice.clear_cart') }}">Clear All</a>
 
                         </span>
-                        <span onclick="openFullscreen();" class="px-4 py-2 rounded-md bg-gray-100 text-gray-800">
-                            +
-                        </span>
-                        <span onclick="closeFullscreen();" class="px-4 py-2 rounded-md bg-gray-100 text-gray-800">
-                            -
-                        </span>
-                        <script>
-                        var elem = document.documentElement;
-                        function openFullscreen() {
-                          if (elem.requestFullscreen) {
-                            elem.requestFullscreen();
-                          } else if (elem.webkitRequestFullscreen) { /* Safari */
-                            elem.webkitRequestFullscreen();
-                          } else if (elem.msRequestFullscreen) { /* IE11 */
-                            elem.msRequestFullscreen();
-                          }
-                        }
-
-                        function closeFullscreen() {
-                          if (document.exitFullscreen) {
-                            document.exitFullscreen();
-                          } else if (document.webkitExitFullscreen) { /* Safari */
-                            document.webkitExitFullscreen();
-                          } else if (document.msExitFullscreen) { /* IE11 */
-                            document.msExitFullscreen();
-                          }
-                        }
-                        </script>
                     </div>
                 </div>
                 <!-- end header -->
@@ -140,15 +112,13 @@
                 <!-- order list -->
 
                 <div class="px-4 mt-5">
-                    <div class="text-xl text-center">
-                        Select Customer
-                    </div>
+
                 {% if 'Shoppingcart' in session %}
+
                 <table class=" w-full table-auto mt-5 rounded">
                     <tbody class="text-gray-600 text-sm font-light">
                     {% for key, product in session['Shoppingcart'].items() %}
                     {% set discount = "%0.2f" |format((product.discount/100) * product.price|float) %}
-
                     <tr>
                         <td class="py-3 px-6 text-left font-bold" colspan="5">
                             <div class="flex items-center">
@@ -249,9 +219,28 @@
                 <!-- end cash -->
 
                 <!-- button pay-->
-                <div class="px-5 mt-5">
-                    <div class="px-4 py-4 rounded-md shadow-lg text-center bg-blue-500 text-white font-semibold">
-                        <a href="{{url_for('client.get_order')}}">Pay Now</a></div>
+                <div class="px-5 mt-5 ">
+                    <div class="text-xl text-center w-full px-4 py-4 rounded-md shadow-lg">
+                        <form action="{{url_for('client.get_order')}}" method="POST">
+                            <div class="mb-5">
+                            <label for="client_id">Customer: </label>
+                            <select name="client_id" id="client_id">
+                                <option value="" selected disabled hidden>Choose here</option>
+                                {% for client in clients %}
+                                <option value="{{ client.id }}">{{ client.name }}</option>
+                                {% endfor %}
+                            </select>
+                            </div>
+                            <div>
+                            <button type="submit" class=" w-full px-4 py-4 rounded-md shadow-lg text-center bg-blue-500 text-white font-semibold">
+                                Pay Now
+                            </button>
+                            </div>
+                        </form>
+                    </div>
+<!--                    <div class="px-4 py-4 rounded-md shadow-lg text-center bg-blue-500 text-white font-semibold">-->
+<!--                        <a href="{{url_for('client.get_order')}}">Pay Now</a>-->
+<!--                    </div>-->
                 </div>
                 <!-- end button pay -->
             </div>

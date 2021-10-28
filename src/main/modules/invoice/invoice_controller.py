@@ -29,10 +29,10 @@ def MagerDicts(dict1, dict2):
 def view_cart():
     if current_user.is_authenticated:
         products = Product.query.all()
-
+        clients = Client.query.all()
         if 'Shoppingcart' not in session or len(session['Shoppingcart']) <= 0:
             # return redirect(url_for('invoice.view_cart'))
-            return render_template('invoice_items.html', user=current_user, products=products)
+            return render_template('invoice_items.html', user=current_user, products=products, clients=clients)
         subtotal = 0
         grandtotal = 0
         for key, product in session['Shoppingcart'].items():
@@ -42,7 +42,8 @@ def view_cart():
             tax = ("%.2f" % (.06 * float(subtotal)))
             grandtotal = float("%.2f" % (1.06 * subtotal))
 
-        return render_template('invoice_items.html', user=current_user, tax=tax, grandtotal=grandtotal, products=products)
+        return render_template('invoice_items.html', user=current_user, tax=tax, grandtotal=grandtotal, products=products
+                               ,clients=clients)
     # return redirect('/')
     return render_template('invoice_items.html', user=current_user)
 

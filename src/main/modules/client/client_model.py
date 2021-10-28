@@ -100,7 +100,7 @@ class ClientOrder(db.Model):
     date_created = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
     orders = db.Column(JsonEcodedDict)
 
-    client_id = db.Column(db.Integer, ForeignKey('client.id'))
+    client_id = db.Column(db.Integer, ForeignKey('client.id'), nullable=False)
     client = relationship('Client', backref='client_orders')
 
     def __repr__(self):
