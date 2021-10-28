@@ -4,7 +4,7 @@ from flask import Blueprint, render_template, redirect, url_for, session, flash,
 from flask_login import login_required, current_user
 
 from src import db
-from src.main.modules.client import Client
+from src.main.modules.client import Client, ClientOrderHistory, ClientOrder
 
 from src.main.modules.currency import Currency
 from src.main.modules.invoice import PaymentStatus, DeliveryStatus, Invoice
@@ -22,6 +22,15 @@ def MagerDicts(dict1, dict2):
         return dict1 + dict2
     if isinstance(dict1, dict) and isinstance(dict2, dict):
         return dict(list(dict1.items()) + list(dict2.items()))
+
+
+@invoice_module.route('/order-list')
+@login_required
+def dashboard_orders():
+
+    if current_user.is_authenticated:
+        orders = ClientOrder.query.all()
+        return render_template('/client-order-list.html', orders=orders)
 
 
 @invoice_module.route('/', methods=['GET', 'POST'])

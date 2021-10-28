@@ -1,17 +1,11 @@
 import secrets
 
-from flask import Blueprint, render_template, redirect, url_for, session, flash, request, jsonify
+from flask import Blueprint, render_template, redirect, url_for, session, flash, request
 from flask_login import login_required, current_user
 
 from src import db
 from src.main.modules.client import Client
 
-from src.main.modules.currency import Currency
-from src.main.modules.invoice import PaymentStatus, DeliveryStatus, Invoice
-from src.main.modules.invoice.invoice_model import InvoiceItem
-
-
-from src.main.modules.invoice.forms import InvoiceForm
 from src.main.modules.product import Product
 
 pos_module = Blueprint('pos', __name__, static_folder='static', template_folder='templates')
@@ -28,6 +22,7 @@ def MagerDicts(dict1, dict2):
 @login_required
 def view_cart():
     if current_user.is_authenticated:
+
         products = Product.query.all()
         clients = Client.query.all()
         if 'Shoppingcart' not in session or len(session['Shoppingcart']) <= 0:
@@ -91,7 +86,6 @@ def add_to_cart():
 def update_cart(code):
     if 'Shoppingcart' not in session or len(session['Shoppingcart']) <= 0:
         return redirect(url_for('pos.view_cart'))
-        # return redirect(url_for('/'))
     if request.method == "POST":
         quantity = int(request.form.get('quantity'))
         color = request.form.get('colors')

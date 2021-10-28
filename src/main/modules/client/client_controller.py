@@ -153,11 +153,9 @@ def get_order():
 
         invoice = secrets.token_hex(5)
         update_shopping_cart
+
         try:
             the_order = ClientOrder(invoice=invoice, client_id=client_id,  orders=session['Shoppingcart'])
-
-            # the_order.client_id = client_id
-
             db.session.add(the_order)
             db.session.commit()
             session.pop('Shoppingcart')
@@ -176,13 +174,14 @@ def orders(invoice):
         grandTotal = 0
         subTotal = 0
         orders = ClientOrder.query.filter_by(invoice=invoice).order_by(ClientOrder.id.desc()).first()
+
+
         for _key, product in orders.orders.items():
             discount = (product['discount'] / 100) * float(product['price'])
             subTotal += float(product['price']) * int(product['quantity'])
             subTotal -= discount
             tax = ("%.2f" % (.06 * float(subTotal)))
             grandTotal = ("%.2f" % (1.06 * float(subTotal)))
-
     else:
         return redirect(url_for('/'))
     return render_template('/client-order.html', invoice=invoice, tax=tax, subTotal=subTotal, grandTotal=grandTotal,

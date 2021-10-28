@@ -1,7 +1,5 @@
 from flask import Blueprint, render_template, redirect, request, url_for, current_app, flash
 from flask_login import login_required, current_user
-from src.main.modules.cart import cart_controller
-
 
 from src import db
 from src.main.modules.product import ProductBrand, ProductCategory, Product
@@ -28,9 +26,6 @@ def viewProductDetails(id):
     if current_user.is_authenticated:
 
         the_product = db.session.query(Product).get(id)
-        # if not the_product.user == current_user:
-        #     flash('You don\'t have any product information')
-        #     return redirect('/')
 
         return render_template('product-details.html', product=the_product,  user=current_user)
 
